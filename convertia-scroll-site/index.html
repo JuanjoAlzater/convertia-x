@@ -397,6 +397,106 @@ body {
 }
 .about-inner { max-width: 780px; margin: 0 auto; }
 
+/* ===== TEAM ===== */
+.team-section {
+  max-width: 1100px;
+  margin: 80px auto 0;
+}
+.team-header {
+  margin-bottom: 48px;
+}
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+}
+.team-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 32px 24px 28px;
+  text-align: center;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+.team-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(var(--accent-rgb), 0.2);
+}
+.team-avatar {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  margin: 0 auto 20px;
+  overflow: hidden;
+  border: 2px solid rgba(var(--accent-rgb), 0.15);
+  position: relative;
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.08), rgba(var(--accent-rgb), 0.02));
+}
+.team-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.team-avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--accent);
+  background: linear-gradient(135deg, rgba(var(--accent-rgb), 0.1), rgba(var(--accent-rgb), 0.03));
+}
+.team-name {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--text-primary);
+}
+.team-role {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-bottom: 12px;
+}
+.team-bio {
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+.team-social {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+.team-social a {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.75rem;
+  transition: all 0.3s ease;
+}
+.team-social a:hover {
+  border-color: rgba(var(--accent-rgb), 0.3);
+  color: var(--accent);
+  background: rgba(var(--accent-rgb), 0.05);
+}
+
 /* ===== SPECS ===== */
 #specs { position: relative; z-index: 1; }
 .specs-grid {
@@ -681,6 +781,7 @@ footer {
   .service-card { padding: 32px; }
   #about { padding: 100px 24px; }
   #cta { padding: 100px 24px; }
+  .team-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
 /* Tablets */
@@ -728,6 +829,10 @@ footer {
   .services-grid { grid-template-columns: 1fr; }
   #services { padding: 60px 20px; }
   .service-card { padding: 28px; }
+  .team-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  .team-section { margin-top: 50px; }
+  .team-avatar { width: 80px; height: 80px; }
+  .team-card { padding: 24px 20px; }
 
   #packages { padding: 60px 20px; }
   .package-card { padding: 28px 24px; }
@@ -754,6 +859,14 @@ footer {
   .section-tag { font-size: 0.65rem; letter-spacing: 2px; }
   .section-title { font-size: clamp(1.4rem, 6vw, 1.8rem); }
   .section-text { font-size: 0.9rem; line-height: 1.65; }
+  .team-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .team-section { margin-top: 40px; }
+  .team-avatar { width: 72px; height: 72px; }
+  .team-avatar-placeholder { font-size: 1.3rem; }
+  .team-card { padding: 20px 16px; }
+  .team-name { font-size: 0.95rem; }
+  .team-role { font-size: 0.65rem; }
+  .team-bio { font-size: 0.8rem; }
 
   .specs-grid { padding: 60px 16px; gap: 20px; }
   .spec-number { font-size: 2rem; }
@@ -903,6 +1016,71 @@ footer {
     <p class="section-tag">Quiénes Somos</p>
     <h2 class="section-title">Estrategia con precisión, resultados con impacto</h2>
     <p class="section-text">En Convertia, transformamos objetivos en resultados a través de estrategias digitales inteligentes. Somos el Sistema de Conversión que ha escalado los sectores más exigentes por 15 años. Nuestra metodología no depende del mercado, sino de una estructura de análisis y ejecución diseñada para acelerar tus ventas.</p>
+  </div>
+
+  <!-- Team -->
+  <div class="team-section">
+    <div class="team-header reveal">
+      <p class="section-tag">Nuestro Equipo</p>
+      <h2 class="section-title">Las personas detrás de tu crecimiento</h2>
+      <p class="section-text">Conoce al equipo que diseña, debate y ejecuta cada estrategia para llevar tu negocio al siguiente nivel.</p>
+    </div>
+    <div class="team-grid">
+
+      <div class="team-card reveal">
+        <div class="team-avatar">
+          <!-- Replace with: <img src="path/to/photo.jpg" alt="Nombre"> -->
+          <div class="team-avatar-placeholder">JR</div>
+        </div>
+        <h3 class="team-name">Nombre Apellido</h3>
+        <p class="team-role">CEO & Fundador</p>
+        <p class="team-bio">Estratega digital con +15 años liderando proyectos de conversión en los sectores más exigentes.</p>
+        <div class="team-social">
+          <a href="#" aria-label="LinkedIn">in</a>
+          <a href="#" aria-label="Twitter">X</a>
+        </div>
+      </div>
+
+      <div class="team-card reveal">
+        <div class="team-avatar">
+          <div class="team-avatar-placeholder">ML</div>
+        </div>
+        <h3 class="team-name">Nombre Apellido</h3>
+        <p class="team-role">Directora de Estrategia</p>
+        <p class="team-bio">Especialista en arquitectura de conversión y metodologías de crecimiento basadas en datos.</p>
+        <div class="team-social">
+          <a href="#" aria-label="LinkedIn">in</a>
+          <a href="#" aria-label="Twitter">X</a>
+        </div>
+      </div>
+
+      <div class="team-card reveal">
+        <div class="team-avatar">
+          <div class="team-avatar-placeholder">CA</div>
+        </div>
+        <h3 class="team-name">Nombre Apellido</h3>
+        <p class="team-role">Director de Tecnología</p>
+        <p class="team-bio">Arquitecto de la plataforma NEXUS AI. Experto en inteligencia artificial y automatización omnicanal.</p>
+        <div class="team-social">
+          <a href="#" aria-label="LinkedIn">in</a>
+          <a href="#" aria-label="Twitter">X</a>
+        </div>
+      </div>
+
+      <div class="team-card reveal">
+        <div class="team-avatar">
+          <div class="team-avatar-placeholder">DP</div>
+        </div>
+        <h3 class="team-name">Nombre Apellido</h3>
+        <p class="team-role">Head of Growth</p>
+        <p class="team-bio">Growth Hacker enfocado en escalar ventas. Diseña experimentos y optimiza embudos de conversión.</p>
+        <div class="team-social">
+          <a href="#" aria-label="LinkedIn">in</a>
+          <a href="#" aria-label="Twitter">X</a>
+        </div>
+      </div>
+
+    </div>
   </div>
 </section>
 
