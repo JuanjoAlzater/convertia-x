@@ -464,12 +464,16 @@ body {
     0 0 60px rgba(var(--accent-rgb), 0.12),
     -4px 12px 0 rgba(var(--accent-rgb), 0.06);
 }
-.about-video-wrap canvas {
+.about-video-wrap canvas,
+.about-video-wrap video {
   display: block;
   width: 100%;
   border-radius: 18px;
   background: var(--bg);
 }
+/* Desktop: show canvas, hide video */
+.about-canvas-desktop { display: block; }
+.about-video-mobile { display: none; }
 .about-video-label {
   position: absolute;
   bottom: 14px;
@@ -925,6 +929,9 @@ footer {
   .about-video-container { max-width: 480px; margin: 0 auto; padding: 24px; }
   .about-video-wrap { transform: rotateY(0) rotateX(0); }
   .about-video-container:hover .about-video-wrap { transform: translateY(-4px); }
+  /* Mobile: show video, hide canvas */
+  .about-canvas-desktop { display: none; }
+  .about-video-mobile { display: block; }
   .section-title { font-size: clamp(1.5rem, 5vw, 2.2rem); }
   .section-text { font-size: 0.95rem; }
 
@@ -1138,7 +1145,12 @@ footer {
       <div class="about-video-frame"></div>
       <div class="about-video-frame-rotated"></div>
       <div class="about-video-wrap">
-        <canvas id="aboutCanvas"></canvas>
+        <!-- Desktop: canvas for scroll-driven playback -->
+        <canvas id="aboutCanvas" class="about-canvas-desktop"></canvas>
+        <!-- Mobile: regular video fallback -->
+        <video class="about-video-mobile" autoplay loop muted playsinline preload="auto">
+          <source src="video-quienes-somos.mp4" type="video/mp4">
+        </video>
         <span class="about-video-label">Nuestro equipo</span>
       </div>
       <video id="aboutVideoSrc" muted playsinline preload="auto" style="display:none">
@@ -1441,6 +1453,9 @@ heroSpline.addEventListener('touchmove', function(e) {
 
 /* ===== SCROLL-DRIVEN VIDEO (frame extraction + canvas) ===== */
 (function() {
+  // Skip on mobile — the regular <video> handles it
+  if (window.innerWidth <= 768) return;
+
   var video = document.getElementById('aboutVideoSrc');
   var canvas = document.getElementById('aboutCanvas');
   var section = document.getElementById('about');
@@ -1448,26 +1463,23 @@ heroSpline.addEventListener('touchmove', function(e) {
 
   var ctx = canvas.getContext('2d');
   var frames = [];
-  var totalFrames = 60;
-  var ready = false;
+  var totalFrames = 40;
+  var extractedCount = 0;
   var currentFrame = 0;
   var targetFrame = 0;
-  var firstFrameDrawn = false;
+  var loopStarted = false;
 
-  // Show first frame ASAP — fires when enough data to display a frame
+  // Show first frame ASAP
   video.addEventListener('loadeddata', function() {
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
-    // Draw frame 0 immediately so canvas isn't black
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-    firstFrameDrawn = true;
   });
 
   video.addEventListener('loadedmetadata', function() {
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
-    // Start extracting after a tiny delay to let first frame paint
-    setTimeout(extractFrames, 100);
+    extractFrames();
   });
 
   function extractFrames() {
@@ -1476,8 +1488,8 @@ heroSpline.addEventListener('touchmove', function(e) {
 
     function grabNext() {
       if (frameIndex >= totalFrames) {
-        ready = true;
-        renderLoop();
+        // Start render loop once all frames are ready
+        if (!loopStarted) { loopStarted = true; renderLoop(); }
         return;
       }
       video.currentTime = (frameIndex / (totalFrames - 1)) * duration;
@@ -1489,11 +1501,17 @@ heroSpline.addEventListener('touchmove', function(e) {
       offscreen.height = video.videoHeight;
       offscreen.getContext('2d').drawImage(video, 0, 0);
       frames[frameIndex] = offscreen;
+      extractedCount = frameIndex + 1;
 
-      // Draw first extracted frame if canvas was still black
-      if (frameIndex === 0 && !firstFrameDrawn) {
+      // Draw on canvas immediately if it's frame 0
+      if (frameIndex === 0) {
         ctx.drawImage(offscreen, 0, 0);
-        firstFrameDrawn = true;
+      }
+
+      // Start render loop early once we have 8+ frames
+      if (extractedCount >= 8 && !loopStarted) {
+        loopStarted = true;
+        renderLoop();
       }
 
       frameIndex++;
@@ -1503,7 +1521,7 @@ heroSpline.addEventListener('touchmove', function(e) {
     grabNext();
   }
 
-  // Track scroll position (works even before extraction finishes)
+  // Track scroll position
   window.addEventListener('scroll', function() {
     var rect = section.getBoundingClientRect();
     var sectionH = section.offsetHeight;
@@ -1514,10 +1532,12 @@ heroSpline.addEventListener('touchmove', function(e) {
   }, { passive: true });
 
   function renderLoop() {
-    if (!ready) return;
-    var diff = targetFrame - currentFrame;
+    // Clamp target to available frames
+    var maxAvailable = extractedCount - 1;
+    var clampedTarget = Math.min(targetFrame, maxAvailable);
+    var diff = clampedTarget - currentFrame;
     currentFrame += diff * 0.12;
-    var drawIndex = Math.round(Math.max(0, Math.min(currentFrame, totalFrames - 1)));
+    var drawIndex = Math.round(Math.max(0, Math.min(currentFrame, maxAvailable)));
     if (frames[drawIndex]) {
       ctx.drawImage(frames[drawIndex], 0, 0);
     }
