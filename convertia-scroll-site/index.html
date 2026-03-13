@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Archivo:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.82/build/spline-viewer.js"></script>
 <style>
 :root {
   --accent: #00FF88;
@@ -22,7 +23,6 @@
 }
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
 ::selection { background: var(--accent); color: #000; }
 
 html {
@@ -30,15 +30,11 @@ html {
   scrollbar-width: thin;
   scrollbar-color: var(--accent) rgba(255,255,255,0.05);
 }
-
 ::-webkit-scrollbar { width: 8px; }
 ::-webkit-scrollbar-track { background: rgba(255,255,255,0.03); }
 ::-webkit-scrollbar-thumb {
   background: linear-gradient(180deg, var(--accent), rgba(var(--accent-rgb), 0.4));
   border-radius: 10px;
-}
-::-webkit-scrollbar-thumb:hover {
-  box-shadow: 0 0 10px rgba(var(--accent-rgb), 0.5);
 }
 
 body {
@@ -56,51 +52,7 @@ body {
   width: 100%; height: 100%;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.6;
-}
-
-/* ===== LOADER ===== */
-#loader {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  background: var(--bg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: opacity 0.6s ease;
-}
-.loader-content { text-align: center; }
-.loader-brand {
-  font-family: var(--font-heading);
-  font-size: 2rem;
-  font-weight: 700;
-  letter-spacing: -1px;
-  margin-bottom: 24px;
-}
-.loader-brand span { color: var(--accent); }
-.loader-text {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  color: var(--text-secondary);
-  margin-bottom: 16px;
-}
-.loader-bar-track {
-  width: 200px;
-  height: 3px;
-  background: rgba(255,255,255,0.08);
-  border-radius: 10px;
-  overflow: hidden;
-  margin: 0 auto;
-}
-.loader-bar-fill {
-  height: 100%;
-  width: 0%;
-  background: var(--accent);
-  border-radius: 10px;
-  transition: width 0.3s ease;
+  opacity: 0.5;
 }
 
 /* ===== SCROLL PROGRESS ===== */
@@ -132,12 +84,39 @@ body {
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 0;
   font-family: var(--font-heading);
   font-size: 1.3rem;
-  font-weight: 700;
-  letter-spacing: -0.5px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }
-.nav-logo span { color: var(--accent); }
+.logo-o {
+  display: inline-block;
+  width: 1.1em;
+  height: 1.1em;
+  position: relative;
+  vertical-align: middle;
+  margin: 0 0.15em;
+}
+.logo-o i {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #d4af37;
+  font-style: normal;
+}
+.logo-o i:nth-child(1) { top: 0%;   left: 50%; transform: translateX(-50%); }
+.logo-o i:nth-child(2) { top: 15%;  left: 85%; }
+.logo-o i:nth-child(3) { top: 50%;  left: 97%; transform: translateY(-50%); }
+.logo-o i:nth-child(4) { top: 85%;  left: 85%; }
+.logo-o i:nth-child(5) { top: 100%; left: 50%; transform: translateX(-50%); }
+.logo-o i:nth-child(6) { top: 85%;  left: 8%; }
+.logo-o i:nth-child(7) { top: 50%;  left: -3%; transform: translateY(-50%); }
+.logo-o i:nth-child(8) { top: 15%;  left: 8%; }
 .nav-links { display: flex; align-items: center; gap: 28px; }
 .nav-links a {
   color: var(--text-secondary);
@@ -177,44 +156,39 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
-  padding: 120px 24px 80px;
   overflow: hidden;
   z-index: 1;
 }
-.hero-bg {
+.hero-spline {
   position: absolute;
   inset: 0;
+  z-index: 0;
+}
+.hero-spline spline-viewer {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 15, 10, 0.3) 0%,
+    rgba(10, 15, 10, 0.1) 40%,
+    rgba(10, 15, 10, 0.5) 80%,
+    rgba(10, 15, 10, 0.95) 100%
+  );
+  z-index: 1;
   pointer-events: none;
-  overflow: hidden;
-}
-.orb {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(100px);
-}
-.orb-1 {
-  width: 600px; height: 600px;
-  background: rgba(var(--accent-rgb), 0.15);
-  top: -250px; right: -150px;
-}
-.orb-2 {
-  width: 450px; height: 450px;
-  background: rgba(var(--accent-rgb), 0.08);
-  bottom: -200px; left: -120px;
-}
-.grid-overlay {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
-  background-size: 60px 60px;
 }
 .hero-content {
   position: relative;
   z-index: 2;
-  max-width: 800px;
+  text-align: center;
+  padding: 0 24px 60px;
+  max-width: 850px;
+  margin-top: auto;
 }
 .hero-tag {
   font-family: var(--font-mono);
@@ -236,7 +210,7 @@ body {
 .hero-subtitle {
   font-size: clamp(1rem, 2vw, 1.15rem);
   color: var(--text-secondary);
-  max-width: 600px;
+  max-width: 620px;
   margin: 0 auto 36px;
   line-height: 1.7;
 }
@@ -287,8 +261,7 @@ body {
   letter-spacing: 2px;
 }
 .scroll-arrow {
-  width: 20px;
-  height: 20px;
+  width: 20px; height: 20px;
   border-right: 2px solid var(--accent);
   border-bottom: 2px solid var(--accent);
   transform: rotate(45deg);
@@ -300,106 +273,7 @@ body {
   50% { transform: rotate(45deg) translateY(8px); }
 }
 
-/* ===== SCROLL ANIMATION ===== */
-.scroll-animation {
-  height: 400vh;
-  position: relative;
-  z-index: 1;
-}
-.scroll-sticky {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  width: 100%;
-  overflow: hidden;
-}
-#frameCanvas {
-  position: absolute;
-  top: 0; left: 0;
-}
-
-/* ===== ANNOTATION CARDS ===== */
-.annotation-card {
-  position: absolute;
-  bottom: 8vh;
-  left: 5vw;
-  max-width: 380px;
-  background: rgba(10, 15, 10, 0.65);
-  border: 1px solid rgba(var(--accent-rgb), 0.1);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border-radius: 20px;
-  padding: 28px;
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.45s ease, transform 0.45s ease;
-  pointer-events: none;
-  z-index: 10;
-}
-.annotation-card.visible {
-  opacity: 1;
-  transform: translateY(0);
-  pointer-events: auto;
-}
-.card-number {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--accent);
-  margin-bottom: 8px;
-  letter-spacing: 1px;
-}
-.card-title {
-  font-family: var(--font-heading);
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin-bottom: 8px;
-}
-.card-desc {
-  font-size: 0.88rem;
-  color: var(--text-secondary);
-  line-height: 1.55;
-  margin-bottom: 16px;
-}
-.card-stat-number {
-  font-family: var(--font-heading);
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: var(--accent);
-}
-.card-stat-label {
-  font-size: 0.78rem;
-  color: var(--text-secondary);
-  display: block;
-  margin-top: 2px;
-}
-
-@media (max-width: 768px) {
-  .annotation-card {
-    bottom: 1.5vh;
-    left: 2vw;
-    right: 2vw;
-    max-width: none;
-    padding: 12px 16px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .card-desc, .card-stat { display: none; }
-  .card-number { margin-bottom: 0; font-size: 0.7rem; }
-  .card-title { font-size: 1rem; margin-bottom: 0; }
-}
-
-/* ===== ABOUT SECTION ===== */
-#about {
-  position: relative;
-  z-index: 1;
-  padding: 120px 32px;
-  text-align: center;
-}
-.about-inner {
-  max-width: 780px;
-  margin: 0 auto;
-}
+/* ===== SECTION COMMONS ===== */
 .section-tag {
   font-family: var(--font-mono);
   font-size: 0.75rem;
@@ -424,11 +298,17 @@ body {
   margin: 0 auto;
 }
 
-/* ===== SPECS ===== */
-#specs {
+/* ===== ABOUT ===== */
+#about {
   position: relative;
   z-index: 1;
+  padding: 120px 32px;
+  text-align: center;
 }
+.about-inner { max-width: 780px; margin: 0 auto; }
+
+/* ===== SPECS ===== */
+#specs { position: relative; z-index: 1; }
 .specs-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -438,7 +318,6 @@ body {
   padding: 100px 32px;
   text-align: center;
 }
-.spec-item { padding: 20px 0; }
 .spec-number {
   font-family: var(--font-heading);
   font-size: 3.5rem;
@@ -456,21 +335,13 @@ body {
   display: block;
 }
 
-@media (max-width: 768px) {
-  .specs-grid { grid-template-columns: repeat(2, 1fr); gap: 32px; }
-  .spec-number { font-size: 2.5rem; }
-}
-
 /* ===== FEATURES ===== */
 #features {
   position: relative;
   z-index: 1;
   padding: 80px 32px;
 }
-.features-header {
-  text-align: center;
-  margin-bottom: 60px;
-}
+.features-header { text-align: center; margin-bottom: 60px; }
 .features-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -491,10 +362,7 @@ body {
   transform: translateY(-4px);
   border-color: rgba(var(--accent-rgb), 0.2);
 }
-.feature-icon {
-  font-size: 2rem;
-  margin-bottom: 16px;
-}
+.feature-icon { font-size: 2rem; margin-bottom: 16px; }
 .feature-card h3 {
   font-family: var(--font-heading);
   font-size: 1.15rem;
@@ -505,13 +373,6 @@ body {
   font-size: 0.9rem;
   color: var(--text-secondary);
   line-height: 1.6;
-}
-
-@media (max-width: 1024px) {
-  .features-grid { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 768px) {
-  .features-grid { grid-template-columns: 1fr; }
 }
 
 /* ===== SERVICES ===== */
@@ -558,10 +419,6 @@ body {
   font-size: 0.92rem;
   color: var(--text-secondary);
   line-height: 1.65;
-}
-
-@media (max-width: 768px) {
-  .services-grid { grid-template-columns: 1fr; }
 }
 
 /* ===== PACKAGES ===== */
@@ -633,16 +490,11 @@ body {
 .package-features li::before {
   content: '';
   display: inline-block;
-  width: 6px;
-  height: 6px;
+  width: 6px; height: 6px;
   background: var(--accent);
   border-radius: 50%;
   flex-shrink: 0;
   margin-top: 8px;
-}
-
-@media (max-width: 1024px) {
-  .packages-grid { grid-template-columns: 1fr; max-width: 520px; }
 }
 
 /* ===== CTA ===== */
@@ -678,10 +530,7 @@ body {
   margin: 0 auto 36px;
   line-height: 1.7;
 }
-.btn-large {
-  font-size: 1.1rem;
-  padding: 18px 48px;
-}
+.btn-large { font-size: 1.1rem; padding: 18px 48px; }
 
 /* ===== FOOTER ===== */
 footer {
@@ -692,12 +541,20 @@ footer {
   text-align: center;
 }
 .footer-brand {
-  font-family: var(--font-heading);
-  font-size: 1.2rem;
-  font-weight: 700;
   margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
 }
-.footer-brand span { color: var(--accent); }
+.footer-brand .nav-logo { font-size: 1.4rem; }
+.footer-tagline {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  color: #7c5cbf;
+  font-style: italic;
+  letter-spacing: 0.5px;
+}
 .footer-links {
   display: flex;
   justify-content: center;
@@ -711,20 +568,33 @@ footer {
   transition: color 0.3s ease;
 }
 .footer-links a:hover { color: var(--text-primary); }
-.footer-copy {
-  color: var(--text-secondary);
-  font-size: 0.78rem;
+.footer-copy { color: var(--text-secondary); font-size: 0.78rem; }
+
+/* ===== SCROLL REVEAL ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-/* ===== RESPONSIVE SCROLL ANIMATION HEIGHT ===== */
-@media (max-width: 1024px) { .scroll-animation { height: 350vh; } }
-@media (max-width: 768px) { .scroll-animation { height: 280vh; } }
-
-/* ===== MOBILE NAV ===== */
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .features-grid { grid-template-columns: repeat(2, 1fr); }
+  .packages-grid { grid-template-columns: 1fr; max-width: 520px; }
+}
 @media (max-width: 768px) {
   .nav-links { display: none; }
-  #hero { padding: 100px 20px 60px; }
+  #hero { min-height: 100svh; }
+  .hero-content { padding: 100px 20px 60px; }
   .hero-title { font-size: clamp(2rem, 8vw, 3rem); }
+  .specs-grid { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+  .spec-number { font-size: 2.5rem; }
+  .features-grid { grid-template-columns: 1fr; }
+  .services-grid { grid-template-columns: 1fr; }
 }
 </style>
 </head>
@@ -733,24 +603,13 @@ footer {
 <!-- Starscape -->
 <canvas id="starscape"></canvas>
 
-<!-- Loader -->
-<div id="loader">
-  <div class="loader-content">
-    <div class="loader-brand">Convertia<span>.</span></div>
-    <p class="loader-text">Cargando</p>
-    <div class="loader-bar-track">
-      <div class="loader-bar-fill" id="loaderBar"></div>
-    </div>
-  </div>
-</div>
-
 <!-- Scroll Progress -->
 <div id="scrollProgress"></div>
 
 <!-- Navbar -->
 <nav id="navbar">
   <div class="nav-inner">
-    <div class="nav-logo">Convertia<span>.</span></div>
+    <div class="nav-logo">C<span class="logo-o"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>NVERTIA</div>
     <div class="nav-links">
       <a href="#about">Nosotros</a>
       <a href="#features">Valores</a>
@@ -761,86 +620,24 @@ footer {
   </div>
 </nav>
 
-<!-- Hero -->
+<!-- Hero with Spline 3D -->
 <section id="hero">
-  <div class="hero-bg">
-    <div class="orb orb-1"></div>
-    <div class="orb orb-2"></div>
-    <div class="grid-overlay"></div>
+  <div class="hero-spline">
+    <spline-viewer url="https://prod.spline.design/5PIJqer1hWsWtXwE/scene.splinecode?v=4" loading-anim-type="spinner-small-dark"></spline-viewer>
   </div>
+  <div class="hero-overlay"></div>
   <div class="hero-content">
     <p class="hero-tag">Atrae &middot; Convierte &middot; Crece</p>
-    <h1 class="hero-title">Una metodología completa para transformar leads en <span>ventas reales</span></h1>
-    <p class="hero-subtitle">No gestionamos campañas, diseñamos rutas de crecimiento. Con más de 15 años de experiencia, optimizamos cada acción digital para potenciar la eficiencia de tu negocio.</p>
     <div class="hero-buttons">
       <a href="#cta" class="btn-primary">Empezar a Convertir</a>
       <a href="#about" class="btn-secondary">Conoce Más</a>
-    </div>
-    <div class="scroll-hint">
-      <span>Scroll para explorar</span>
-      <div class="scroll-arrow"></div>
-    </div>
-  </div>
-</section>
-
-<!-- Scroll Animation -->
-<section class="scroll-animation">
-  <div class="scroll-sticky">
-    <canvas id="frameCanvas"></canvas>
-
-    <div class="annotation-card" data-show="0.08" data-hide="0.28">
-      <div class="card-number">01</div>
-      <div class="card-body">
-        <h3 class="card-title">NEXUS AI Omnicanal</h3>
-        <p class="card-desc">El sistema de IA que unifica tu comunicación. Gestiona seguimientos, sincroniza agendas y cierra citas de venta de forma autónoma.</p>
-        <div class="card-stat">
-          <span class="card-stat-number">100%</span>
-          <span class="card-stat-label">Leads Atendidos</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="annotation-card" data-show="0.30" data-hide="0.50">
-      <div class="card-number">02</div>
-      <div class="card-body">
-        <h3 class="card-title">Growth Hacking</h3>
-        <p class="card-desc">Datos, experimentos y conversión alineados a resultados de negocio. No nos enfocamos solo en tráfico — nos enfocamos en ventas.</p>
-        <div class="card-stat">
-          <span class="card-stat-number">360°</span>
-          <span class="card-stat-label">Embudo Completo</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="annotation-card" data-show="0.52" data-hide="0.72">
-      <div class="card-number">03</div>
-      <div class="card-body">
-        <h3 class="card-title">Metodología MAGIA</h3>
-        <p class="card-desc">Maximización, Alcance, Generación, Impacto, Atracción. Un sistema estratégico que hace crecer tu negocio, no solo campañas.</p>
-        <div class="card-stat">
-          <span class="card-stat-number">5 Pilares</span>
-          <span class="card-stat-label">Estrategia Viva</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="annotation-card" data-show="0.74" data-hide="0.94">
-      <div class="card-number">04</div>
-      <div class="card-body">
-        <h3 class="card-title">Smart Media Amplify</h3>
-        <p class="card-desc">No compramos medios: activamos resultados. Optimizamos cada peso y amplificamos el impacto real de tu inversión publicitaria.</p>
-        <div class="card-stat">
-          <span class="card-stat-number">+ROI</span>
-          <span class="card-stat-label">Retorno Medible</span>
-        </div>
-      </div>
     </div>
   </div>
 </section>
 
 <!-- About -->
 <section id="about">
-  <div class="about-inner">
+  <div class="about-inner reveal">
     <p class="section-tag">Quiénes Somos</p>
     <h2 class="section-title">Estrategia con precisión, resultados con impacto</h2>
     <p class="section-text">En Convertia, transformamos objetivos en resultados a través de estrategias digitales inteligentes. Somos el Sistema de Conversión que ha escalado los sectores más exigentes por 15 años. Nuestra metodología no depende del mercado, sino de una estructura de análisis y ejecución diseñada para acelerar tus ventas.</p>
@@ -871,37 +668,37 @@ footer {
 
 <!-- Features / Values -->
 <section id="features">
-  <div class="features-header">
+  <div class="features-header reveal">
     <p class="section-tag">Valores Agregados</p>
     <h2 class="section-title">Lo que nos define</h2>
   </div>
   <div class="features-grid">
-    <div class="feature-card">
+    <div class="feature-card reveal">
       <div class="feature-icon">&#9889;</div>
       <h3>Innovación Aplicada</h3>
       <p>La innovación no es una moda, es una herramienta. Tecnología de vanguardia y metodologías ágiles enfocadas en hacer más eficiente tu proceso de venta.</p>
     </div>
-    <div class="feature-card">
+    <div class="feature-card reveal">
       <div class="feature-icon">&#9878;</div>
       <h3>Debate Estratégico</h3>
       <p>Tu socio, no tu proveedor. Cuestionamos, analizamos y debatimos para encontrar la ruta óptima. Tu negocio merece pensamiento crítico y experto.</p>
     </div>
-    <div class="feature-card">
+    <div class="feature-card reveal">
       <div class="feature-icon">&#128269;</div>
       <h3>Inmersión Profunda</h3>
       <p>No empezamos con anuncios, empezamos con preguntas clave. Entendemos tu negocio, tus objetivos y tus desafíos antes de ejecutar.</p>
     </div>
-    <div class="feature-card">
+    <div class="feature-card reveal">
       <div class="feature-icon">&#127919;</div>
       <h3>Enfoque en Resultados</h3>
       <p>Resultados reales, no solo métricas de vanidad. Cada estrategia se mide por su impacto directo en las ventas de tu negocio.</p>
     </div>
-    <div class="feature-card">
+    <div class="feature-card reveal">
       <div class="feature-icon">&#128260;</div>
       <h3>Optimización Continua</h3>
       <p>Eficiencia en cada acción. Iteramos, medimos y optimizamos de forma constante para maximizar tu retorno de inversión.</p>
     </div>
-    <div class="feature-card">
+    <div class="feature-card reveal">
       <div class="feature-icon">&#129309;</div>
       <h3>Transparencia Total</h3>
       <p>Criterio estratégico con reportes claros. Compromiso genuino con el crecimiento del cliente, sin letra pequeña.</p>
@@ -911,37 +708,37 @@ footer {
 
 <!-- Services -->
 <section id="services">
-  <div class="features-header">
-    <p class="section-tag">Servicios & Metodología</p>
+  <div class="features-header reveal">
+    <p class="section-tag">Servicios &amp; Metodología</p>
     <h2 class="section-title">Nuestro sistema de conversión</h2>
   </div>
   <div class="services-grid">
-    <div class="service-card">
+    <div class="service-card reveal">
       <p class="service-tag">Plataforma AI</p>
       <h3>NEXUS Omnicanal</h3>
       <p>Sistema de IA que unifica tu comunicación. Gestiona seguimientos, sincroniza agendas y cierra citas de venta. El 100% de tus leads reciben atención personalizada y seguimiento persistente.</p>
     </div>
-    <div class="service-card">
+    <div class="service-card reveal">
       <p class="service-tag">Crecimiento</p>
       <h3>Growth Hacking</h3>
       <p>Analiza el comportamiento del usuario, prueba hipótesis y optimiza el embudo completo para mejorar conversiones y acelerar ingresos, maximizando el presupuesto.</p>
     </div>
-    <div class="service-card">
+    <div class="service-card reveal">
       <p class="service-tag">Estrategia</p>
       <h3>Metodología MAGIA</h3>
       <p>Maximización, Alcance, Generación, Impacto, Atracción. Transforma la estrategia en una herramienta viva que genera valor real a la marca.</p>
     </div>
-    <div class="service-card">
+    <div class="service-card reveal">
       <p class="service-tag">Branding</p>
       <h3>Arquitectura ARCO</h3>
       <p>Diseñamos marcas con estructura estratégica, capaces de adaptarse, escalar y conectar. Autenticidad, Relevancia, Conectividad y Originalidad.</p>
     </div>
-    <div class="service-card">
+    <div class="service-card reveal">
       <p class="service-tag">Medios</p>
       <h3>Smart Media Amplify</h3>
       <p>No compramos medios: activamos resultados. Optimizamos cada canal y amplificamos el impacto real de tu inversión publicitaria con enfoque en conversión.</p>
     </div>
-    <div class="service-card">
+    <div class="service-card reveal">
       <p class="service-tag">Workshop</p>
       <h3>Sesiones Estratégicas</h3>
       <p>Decidir es un proceso, no un impulso. Sesiones con equipo directivo para debates estratégicos de crecimiento orgánico, geográfico y de portafolio.</p>
@@ -951,12 +748,12 @@ footer {
 
 <!-- Packages -->
 <section id="packages">
-  <div class="features-header">
+  <div class="features-header reveal">
     <p class="section-tag">Paquetes</p>
     <h2 class="section-title">Elige tu nivel de crecimiento</h2>
   </div>
   <div class="packages-grid">
-    <div class="package-card">
+    <div class="package-card reveal">
       <p class="package-level">Nivel Entrada</p>
       <h3>Accelerator 360°</h3>
       <p class="package-desc">Establece la base de conversión y captura la demanda existente. Ordena la casa y asegura que el tráfico actual no se pierda.</p>
@@ -969,7 +766,7 @@ footer {
       </ul>
       <a href="#cta" class="btn-secondary" style="text-align:center">Conocer Más</a>
     </div>
-    <div class="package-card featured">
+    <div class="package-card featured reveal">
       <p class="package-level">Nivel Crecimiento</p>
       <h3>Performance Elite</h3>
       <p class="package-desc">Domina el sector y genera un flujo constante de citas de venta con KPIs reales.</p>
@@ -982,7 +779,7 @@ footer {
       </ul>
       <a href="#cta" class="btn-primary" style="text-align:center">Elegir Este Plan</a>
     </div>
-    <div class="package-card">
+    <div class="package-card reveal">
       <p class="package-level">Nivel Expansión</p>
       <h3>Dominance System</h3>
       <p class="package-desc">Lidera el mercado y desplaza a la competencia. Máquina de generación de demanda imparable.</p>
@@ -1001,7 +798,7 @@ footer {
 <!-- CTA -->
 <section id="cta">
   <div class="cta-orb"></div>
-  <div class="cta-content">
+  <div class="cta-content reveal">
     <p class="section-tag">Da el primer paso</p>
     <h2>Activa tu Workshop Estratégico</h2>
     <p>Las grandes decisiones no nacen en presentaciones, nacen en el debate correcto. Creamos espacios de debate, exploración y toma de decisiones donde el crecimiento se diseña con método.</p>
@@ -1012,7 +809,10 @@ footer {
 <!-- Footer -->
 <footer>
   <div class="footer-inner">
-    <div class="footer-brand">Convertia<span>.</span></div>
+    <div class="footer-brand">
+      <div class="nav-logo">C<span class="logo-o"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span>NVERTIA</div>
+      <span class="footer-tagline">Atrae, convierte, crece</span>
+    </div>
     <div class="footer-links">
       <a href="#about">Nosotros</a>
       <a href="#services">Servicios</a>
@@ -1027,254 +827,99 @@ footer {
 <script>
 /* ===== STARSCAPE ===== */
 (function() {
-  const canvas = document.getElementById('starscape');
-  const ctx = canvas.getContext('2d');
+  const c = document.getElementById('starscape');
+  const ctx = c.getContext('2d');
   const stars = [];
-  const STAR_COUNT = 180;
-
   function resize() {
-    const dpr = window.devicePixelRatio || 1;
-    canvas.width = window.innerWidth * dpr;
-    canvas.height = window.innerHeight * dpr;
-    canvas.style.width = window.innerWidth + 'px';
-    canvas.style.height = window.innerHeight + 'px';
+    const d = devicePixelRatio || 1;
+    c.width = innerWidth * d;
+    c.height = innerHeight * d;
+    c.style.width = innerWidth + 'px';
+    c.style.height = innerHeight + 'px';
   }
-
-  function init() {
-    resize();
-    for (let i = 0; i < STAR_COUNT; i++) {
-      stars.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        radius: 0.3 + Math.random() * 1.2,
-        baseOpacity: 0.2 + Math.random() * 0.6,
-        driftX: (Math.random() - 0.5) * 0.04,
-        driftY: (Math.random() - 0.5) * 0.02,
-        twinkleSpeed: 0.0005 + Math.random() * 0.002,
-        twinklePhase: Math.random() * Math.PI * 2
-      });
-    }
+  resize();
+  for (let i = 0; i < 160; i++) {
+    stars.push({
+      x: Math.random() * c.width, y: Math.random() * c.height,
+      r: 0.3 + Math.random() * 1.2, o: 0.2 + Math.random() * 0.6,
+      dx: (Math.random() - 0.5) * 0.04, dy: (Math.random() - 0.5) * 0.02,
+      ts: 0.0005 + Math.random() * 0.002, tp: Math.random() * Math.PI * 2
+    });
   }
-
-  function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    const now = Date.now();
+  (function loop() {
+    ctx.clearRect(0, 0, c.width, c.height);
+    const t = Date.now();
     stars.forEach(s => {
-      s.x += s.driftX;
-      s.y += s.driftY;
-      if (s.x < 0) s.x = canvas.width;
-      if (s.x > canvas.width) s.x = 0;
-      if (s.y < 0) s.y = canvas.height;
-      if (s.y > canvas.height) s.y = 0;
-      const twinkle = Math.sin(now * s.twinkleSpeed + s.twinklePhase);
-      const opacity = Math.max(0, s.baseOpacity + twinkle * 0.3);
+      s.x += s.dx; s.y += s.dy;
+      if (s.x < 0) s.x = c.width; if (s.x > c.width) s.x = 0;
+      if (s.y < 0) s.y = c.height; if (s.y > c.height) s.y = 0;
+      const a = Math.max(0, s.o + Math.sin(t * s.ts + s.tp) * 0.3);
       ctx.beginPath();
-      ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(255,255,255,' + opacity + ')';
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(255,255,255,' + a + ')';
       ctx.fill();
     });
-    requestAnimationFrame(animate);
-  }
-
-  window.addEventListener('resize', resize);
-  init();
-  animate();
+    requestAnimationFrame(loop);
+  })();
+  addEventListener('resize', resize);
 })();
 
-/* ===== FRAME PRELOADING ===== */
-const FRAME_COUNT = 120;
-const frames = [];
-let loadedFrames = 0;
-let currentFrame = -1;
-const loaderBar = document.getElementById('loaderBar');
-const loader = document.getElementById('loader');
-const frameCanvas = document.getElementById('frameCanvas');
-const frameCtx = frameCanvas.getContext('2d');
-
-function resizeFrameCanvas() {
-  const dpr = window.devicePixelRatio || 1;
-  frameCanvas.width = window.innerWidth * dpr;
-  frameCanvas.height = window.innerHeight * dpr;
-  frameCanvas.style.width = window.innerWidth + 'px';
-  frameCanvas.style.height = window.innerHeight + 'px';
-  if (currentFrame >= 0) drawFrame(currentFrame);
-}
-
-window.addEventListener('resize', resizeFrameCanvas);
-resizeFrameCanvas();
-
-for (let i = 1; i <= FRAME_COUNT; i++) {
-  const img = new Image();
-  img.src = 'frames/frame_' + String(i).padStart(4, '0') + '.jpg';
-  img.onload = function() {
-    loadedFrames++;
-    const pct = (loadedFrames / FRAME_COUNT) * 100;
-    loaderBar.style.width = pct + '%';
-    if (loadedFrames === FRAME_COUNT) {
-      loader.style.opacity = '0';
-      setTimeout(function() { loader.style.display = 'none'; }, 600);
-      drawFrame(0);
-    }
-  };
-  frames.push(img);
-}
-
-/* ===== FRAME DRAWING ===== */
-
-function drawFrame(index) {
-  const img = frames[index];
-  if (!img || !img.complete) return;
-  const cw = frameCanvas.width;
-  const ch = frameCanvas.height;
-  frameCtx.clearRect(0, 0, cw, ch);
-
-  const imgRatio = img.naturalWidth / img.naturalHeight;
-  const canvasRatio = cw / ch;
-  let drawW, drawH, drawX, drawY;
-
-  if (window.innerWidth > 768) {
-    if (canvasRatio > imgRatio) {
-      drawW = cw;
-      drawH = cw / imgRatio;
-    } else {
-      drawH = ch;
-      drawW = ch * imgRatio;
-    }
-    drawX = (cw - drawW) / 2;
-    drawY = (ch - drawH) / 2;
-  } else {
-    const zoom = 1.2;
-    if (canvasRatio > imgRatio) {
-      drawH = ch * zoom;
-      drawW = drawH * imgRatio;
-    } else {
-      drawW = cw * zoom;
-      drawH = drawW / imgRatio;
-    }
-    drawX = (cw - drawW) / 2;
-    drawY = (ch - drawH) / 2;
-  }
-
-  frameCtx.drawImage(img, drawX, drawY, drawW, drawH);
-}
-
-/* ===== SCROLL HANDLER ===== */
-let ticking = false;
+/* ===== SCROLL PROGRESS + NAVBAR ===== */
 const scrollProgress = document.getElementById('scrollProgress');
 const navbar = document.getElementById('navbar');
-const annotationCards = document.querySelectorAll('.annotation-card');
-const SNAP_ZONES = [];
-const HOLD_DURATION = 600;
-let isSnapping = false;
-
-annotationCards.forEach(function(card) {
-  SNAP_ZONES.push({
-    show: parseFloat(card.dataset.show),
-    hide: parseFloat(card.dataset.hide),
-    snapped: false
-  });
-});
-
-function updateCards(progress) {
-  annotationCards.forEach(function(card, i) {
-    const zone = SNAP_ZONES[i];
-    const visible = progress >= zone.show && progress <= zone.hide;
-    card.classList.toggle('visible', visible);
-    if (visible && !zone.snapped && !isSnapping) {
-      zone.snapped = true;
-      isSnapping = true;
-      document.body.style.overflow = 'hidden';
-      setTimeout(function() {
-        document.body.style.overflow = '';
-        isSnapping = false;
-      }, HOLD_DURATION);
-    }
-    if (!visible) zone.snapped = false;
-  });
-}
 
 window.addEventListener('scroll', function() {
-  if (!ticking) {
-    requestAnimationFrame(function() {
-      // Scroll progress bar
-      const scrollPct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
-      scrollProgress.style.width = scrollPct + '%';
-
-      // Navbar pill
-      navbar.classList.toggle('nav-scrolled', window.scrollY > 80);
-
-      // Frame animation
-      const section = document.querySelector('.scroll-animation');
-      const rect = section.getBoundingClientRect();
-      const scrollableHeight = section.offsetHeight - window.innerHeight;
-      const progress = Math.min(1, Math.max(0, -rect.top / scrollableHeight));
-      const frameIndex = Math.min(FRAME_COUNT - 1, Math.floor(progress * FRAME_COUNT));
-
-      if (frameIndex !== currentFrame) {
-        currentFrame = frameIndex;
-        drawFrame(frameIndex);
-      }
-
-      updateCards(progress);
-      ticking = false;
-    });
-    ticking = true;
-  }
+  const pct = (scrollY / (document.body.scrollHeight - innerHeight)) * 100;
+  scrollProgress.style.width = pct + '%';
+  navbar.classList.toggle('nav-scrolled', scrollY > 80);
 }, { passive: true });
 
 /* ===== SPECS COUNT-UP ===== */
-function easeOutExpo(t) {
-  return t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
-}
+function easeOutExpo(t) { return t === 1 ? 1 : 1 - Math.pow(2, -10 * t); }
 
-function countUp(el, target, suffix, duration) {
-  duration = duration || 2000;
+function countUp(el, target, suffix, dur) {
+  dur = dur || 2000;
   const start = performance.now();
   el.classList.add('counting');
-  function update(now) {
-    const elapsed = now - start;
-    const progress = Math.min(elapsed / duration, 1);
-    const eased = easeOutExpo(progress);
-    const current = eased * target;
-    el.textContent = (target % 1 === 0 ? Math.floor(current) : current.toFixed(1)) + suffix;
-    if (progress < 1) {
-      requestAnimationFrame(update);
-    } else {
-      el.textContent = target + suffix;
-      el.classList.remove('counting');
-    }
-  }
-  requestAnimationFrame(update);
+  (function tick(now) {
+    const p = Math.min((now - start) / dur, 1);
+    const v = easeOutExpo(p) * target;
+    el.textContent = (target % 1 === 0 ? Math.floor(v) : v.toFixed(1)) + suffix;
+    if (p < 1) requestAnimationFrame(tick);
+    else { el.textContent = target + suffix; el.classList.remove('counting'); }
+  })(start);
 }
 
-const specObserver = new IntersectionObserver(function(entries) {
-  entries.forEach(function(entry) {
-    if (entry.isIntersecting) {
-      const items = entry.target.querySelectorAll('.spec-item');
-      items.forEach(function(item, i) {
+new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.spec-item').forEach(function(item, i) {
         setTimeout(function() {
-          const numEl = item.querySelector('.spec-number');
-          const target = parseFloat(item.dataset.target);
-          const suffix = item.dataset.suffix || '';
-          countUp(numEl, target, suffix);
+          countUp(item.querySelector('.spec-number'), parseFloat(item.dataset.target), item.dataset.suffix || '');
         }, i * 200);
       });
-      specObserver.unobserve(entry.target);
+      this.unobserve(e.target);
+    }
+  }.bind(this));
+}, { threshold: 0.3 }).observe(document.getElementById('specs'));
+
+/* ===== SCROLL REVEAL ===== */
+const revealObs = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) {
+      e.target.classList.add('visible');
+      revealObs.unobserve(e.target);
     }
   });
-}, { threshold: 0.3 });
+}, { threshold: 0.15 });
 
-specObserver.observe(document.getElementById('specs'));
+document.querySelectorAll('.reveal').forEach(function(el) { revealObs.observe(el); });
 
-/* ===== SMOOTH ANCHOR SCROLLING ===== */
+/* ===== SMOOTH ANCHORS ===== */
 document.querySelectorAll('a[href^="#"]').forEach(function(a) {
   a.addEventListener('click', function(e) {
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      e.preventDefault();
-      const top = target.getBoundingClientRect().top + window.scrollY - 80;
-      window.scrollTo({ top: top, behavior: 'smooth' });
-    }
+    const t = document.querySelector(this.getAttribute('href'));
+    if (t) { e.preventDefault(); window.scrollTo({ top: t.getBoundingClientRect().top + scrollY - 80, behavior: 'smooth' }); }
   });
 });
 </script>
