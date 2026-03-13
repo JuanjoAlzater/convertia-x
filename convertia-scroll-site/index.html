@@ -176,8 +176,9 @@ body {
 #hero {
   position: relative;
   min-height: 100vh;
+  min-height: 100svh;
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
   overflow: hidden;
   z-index: 1;
@@ -192,6 +193,68 @@ body {
   width: 100vw;
   height: 100vh;
   display: block;
+}
+/* Mobile hero alternative - hidden on desktop */
+.hero-mobile-bg {
+  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 50% 40%, rgba(var(--accent-rgb), 0.12) 0%, transparent 60%),
+              radial-gradient(ellipse at 20% 80%, rgba(var(--accent-rgb), 0.06) 0%, transparent 50%),
+              radial-gradient(ellipse at 80% 20%, rgba(var(--accent-rgb), 0.08) 0%, transparent 50%),
+              var(--bg);
+}
+.hero-mobile-bg .hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.5;
+  animation: orbFloat 8s ease-in-out infinite;
+}
+.hero-mobile-bg .hero-orb:nth-child(1) {
+  width: 300px; height: 300px;
+  background: rgba(var(--accent-rgb), 0.2);
+  top: 10%; left: -10%;
+  animation-delay: 0s;
+}
+.hero-mobile-bg .hero-orb:nth-child(2) {
+  width: 250px; height: 250px;
+  background: rgba(var(--accent-rgb), 0.15);
+  top: 30%; right: -15%;
+  animation-delay: -3s;
+}
+.hero-mobile-bg .hero-orb:nth-child(3) {
+  width: 200px; height: 200px;
+  background: rgba(var(--accent-rgb), 0.1);
+  bottom: 20%; left: 20%;
+  animation-delay: -5s;
+}
+.hero-mobile-bg .hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(var(--accent-rgb), 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--accent-rgb), 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.hero-mobile-bg .hero-glow {
+  position: absolute;
+  width: 180px; height: 180px;
+  top: 35%; left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(var(--accent-rgb), 0.35) 0%, rgba(var(--accent-rgb), 0.08) 40%, transparent 70%);
+  animation: pulseGlow 4s ease-in-out infinite;
+}
+@keyframes orbFloat {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-30px) scale(1.05); }
+}
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
 }
 .hero-overlay {
   position: absolute;
@@ -212,7 +275,7 @@ body {
   text-align: center;
   padding: 0 24px 60px;
   max-width: 850px;
-  margin-top: auto;
+  width: 100%;
 }
 .hero-tag {
   font-family: var(--font-mono);
@@ -238,6 +301,9 @@ body {
   margin: 0 auto 36px;
   line-height: 1.7;
 }
+/* Mobile-only hero text — hidden on desktop where Spline scene has its own text */
+.hero-title-mobile, .hero-subtitle-mobile { display: none; }
+
 .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
 .btn-primary {
   display: inline-block;
@@ -623,7 +689,30 @@ footer {
   .nav-inner { padding: 10px 20px; }
   #navbar.nav-scrolled .nav-inner { padding: 8px 20px; }
 
-  #hero { min-height: 100svh; }
+  #hero { min-height: 100svh; align-items: center; }
+  /* Hide Spline on mobile, show animated background */
+  .hero-spline { display: none; }
+  .hero-mobile-bg { display: block; }
+  .hero-title-mobile {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: clamp(2.2rem, 10vw, 3.5rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    margin-bottom: 16px;
+  }
+  .hero-title-mobile span { color: var(--accent); }
+  .hero-subtitle-mobile {
+    display: block;
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 24px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
   .hero-content { padding: 0 20px 40px; }
   .hero-tag { font-size: 0.7rem; letter-spacing: 2px; margin-bottom: 16px; }
   .hero-buttons { gap: 12px; }
@@ -662,7 +751,7 @@ footer {
   .logo-o { width: 1em; height: 1em; }
   .logo-o i { width: 2.5px; height: 2.5px; }
 
-  .hero-content { padding: 0 16px 32px; }
+  .hero-content { padding: 0 16px 32px; padding-bottom: max(32px, env(safe-area-inset-bottom, 32px)); }
   .hero-tag { font-size: 0.65rem; letter-spacing: 1.5px; }
   .hero-buttons { flex-direction: column; align-items: center; gap: 10px; }
   .btn-primary, .btn-secondary { width: 100%; max-width: 280px; text-align: center; padding: 14px 24px; }
@@ -714,6 +803,19 @@ footer {
   .package-card:hover { transform: none; }
   .btn-primary:hover,
   .btn-secondary:hover { transform: none; }
+}
+
+/* Mobile hero overlay — darker at bottom for text readability */
+@media (max-width: 768px) {
+  .hero-overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(10, 15, 10, 0.1) 0%,
+      rgba(10, 15, 10, 0.05) 30%,
+      rgba(10, 15, 10, 0.6) 70%,
+      rgba(10, 15, 10, 0.98) 100%
+    );
+  }
 }
 
 /* Landscape phones */
@@ -778,11 +880,22 @@ footer {
 
 <!-- Hero with Spline 3D -->
 <section id="hero">
+  <!-- Desktop: Spline web component -->
   <div class="hero-spline">
     <spline-viewer url="https://prod.spline.design/5PIJqer1hWsWtXwE/scene.splinecode?v=4" loading-anim-type="spinner-small-dark"></spline-viewer>
   </div>
+  <!-- Mobile: animated background (Spline not responsive on small screens) -->
+  <div class="hero-mobile-bg">
+    <div class="hero-orb"></div>
+    <div class="hero-orb"></div>
+    <div class="hero-orb"></div>
+    <div class="hero-grid"></div>
+    <div class="hero-glow"></div>
+  </div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
+    <h1 class="hero-title-mobile">Sistema de<br><span>Conversión</span> Digital</h1>
+    <p class="hero-subtitle-mobile">No gestionamos campañas, diseñamos rutas de crecimiento</p>
     <p class="hero-tag">Atrae &middot; Convierte &middot; Crece</p>
     <div class="hero-buttons">
       <a href="#cta" class="btn-primary">Empezar a Convertir</a>
@@ -1073,12 +1186,13 @@ document.querySelectorAll('.reveal').forEach(function(el) { revealObs.observe(el
 
 /* ===== SPLINE SCROLL PASSTHROUGH ===== */
 var heroSpline = document.querySelector('.hero-spline');
+
 heroSpline.addEventListener('wheel', function(e) {
   e.preventDefault();
   window.scrollBy(0, e.deltaY);
 }, { passive: false });
 
-// Touch passthrough for mobile
+// Touch passthrough for tablets where Spline is still visible
 var touchStartY = 0;
 heroSpline.addEventListener('touchstart', function(e) {
   touchStartY = e.touches[0].clientY;
