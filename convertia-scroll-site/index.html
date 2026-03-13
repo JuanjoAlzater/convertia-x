@@ -393,9 +393,114 @@ body {
   position: relative;
   z-index: 1;
   padding: 120px 32px;
-  text-align: center;
 }
-.about-inner { max-width: 780px; margin: 0 auto; }
+.about-layout {
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 48px;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.about-inner {
+  max-width: 100%;
+  text-align: left;
+}
+/* Video container with decorative frames */
+.about-video-container {
+  position: relative;
+  perspective: 900px;
+  padding: 30px;
+}
+/* Decorative frame 1: neon green, thick */
+.about-video-frame {
+  position: absolute;
+  inset: 6px;
+  border: 4px solid rgba(var(--accent-rgb), 0.45);
+  border-radius: 24px;
+  pointer-events: none;
+  z-index: 0;
+  box-shadow: 0 0 18px rgba(var(--accent-rgb), 0.1), inset 0 0 18px rgba(var(--accent-rgb), 0.05);
+  transition: border-color 0.4s ease, box-shadow 0.4s ease;
+}
+.about-video-container:hover .about-video-frame {
+  border-color: rgba(var(--accent-rgb), 0.7);
+  box-shadow: 0 0 28px rgba(var(--accent-rgb), 0.2), inset 0 0 28px rgba(var(--accent-rgb), 0.08);
+}
+/* Decorative frame 2: white, rotated */
+.about-video-frame-rotated {
+  position: absolute;
+  inset: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  pointer-events: none;
+  z-index: 0;
+  transform: rotate(3deg);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
+}
+.about-video-container:hover .about-video-frame-rotated {
+  transform: rotate(5deg);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+/* Main video wrap with 3D tilt */
+.about-video-wrap {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 2px solid rgba(var(--accent-rgb), 0.2);
+  background: var(--bg);
+  z-index: 1;
+  transform: rotateY(-4deg) rotateX(2deg);
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    0 0 40px rgba(var(--accent-rgb), 0.08),
+    -8px 8px 0 rgba(var(--accent-rgb), 0.04);
+}
+.about-video-container:hover .about-video-wrap {
+  transform: rotateY(-1deg) rotateX(1deg) translateY(-4px);
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.6),
+    0 0 60px rgba(var(--accent-rgb), 0.12),
+    -4px 12px 0 rgba(var(--accent-rgb), 0.06);
+}
+.about-video-wrap canvas {
+  display: block;
+  width: 100%;
+  border-radius: 18px;
+  background: var(--bg);
+}
+.about-video-label {
+  position: absolute;
+  bottom: 14px;
+  left: 14px;
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  background: rgba(10, 15, 10, 0.8);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 5px 12px;
+  border-radius: 6px;
+  border: 1px solid rgba(var(--accent-rgb), 0.15);
+  z-index: 2;
+}
+/* Floating glow behind the video */
+.about-video-glow {
+  position: absolute;
+  width: 70%;
+  height: 70%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(var(--accent-rgb), 0.1) 0%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(40px);
+  z-index: -1;
+  pointer-events: none;
+}
 
 /* ===== TEAM ===== */
 .team-section {
@@ -781,6 +886,7 @@ footer {
   .service-card { padding: 32px; }
   #about { padding: 100px 24px; }
   #cta { padding: 100px 24px; }
+  .about-layout { gap: 36px; }
   .team-grid { grid-template-columns: repeat(2, 1fr); }
 }
 
@@ -814,6 +920,11 @@ footer {
   .btn-primary, .btn-secondary { padding: 12px 24px; font-size: 0.9rem; }
 
   #about { padding: 30px 20px; }
+  .about-layout { grid-template-columns: 1fr; gap: 32px; }
+  .about-inner { text-align: center; }
+  .about-video-container { max-width: 480px; margin: 0 auto; padding: 24px; }
+  .about-video-wrap { transform: rotateY(0) rotateX(0); }
+  .about-video-container:hover .about-video-wrap { transform: translateY(-4px); }
   .section-title { font-size: clamp(1.5rem, 5vw, 2.2rem); }
   .section-text { font-size: 0.95rem; }
 
@@ -856,6 +967,10 @@ footer {
   .btn-primary, .btn-secondary { width: 100%; max-width: 280px; text-align: center; padding: 14px 24px; }
 
   #about { padding: 60px 16px; }
+  .about-layout { gap: 24px; }
+  .about-video-container { max-width: 100%; padding: 20px; }
+  .about-video-frame-rotated { transform: rotate(2deg); }
+  .about-video-container:hover .about-video-frame-rotated { transform: rotate(3deg); }
   .section-tag { font-size: 0.65rem; letter-spacing: 2px; }
   .section-title { font-size: clamp(1.4rem, 6vw, 1.8rem); }
   .section-text { font-size: 0.9rem; line-height: 1.65; }
@@ -1012,76 +1127,26 @@ footer {
 
 <!-- About -->
 <section id="about">
-  <div class="about-inner reveal">
-    <p class="section-tag">Quiénes Somos</p>
-    <h2 class="section-title">Estrategia con precisión, resultados con impacto</h2>
-    <p class="section-text">En Convertia, transformamos objetivos en resultados a través de estrategias digitales inteligentes. Somos el Sistema de Conversión que ha escalado los sectores más exigentes por 15 años. Nuestra metodología no depende del mercado, sino de una estructura de análisis y ejecución diseñada para acelerar tus ventas.</p>
-  </div>
-
-  <!-- Team -->
-  <div class="team-section">
-    <div class="team-header reveal">
-      <p class="section-tag">Nuestro Equipo</p>
-      <h2 class="section-title">Las personas detrás de tu crecimiento</h2>
-      <p class="section-text">Conoce al equipo que diseña, debate y ejecuta cada estrategia para llevar tu negocio al siguiente nivel.</p>
+  <div class="about-layout">
+    <div class="about-inner reveal">
+      <p class="section-tag">Quiénes Somos</p>
+      <h2 class="section-title">Estrategia con precisión, resultados con impacto</h2>
+      <p class="section-text">En Convertia, transformamos objetivos en resultados a través de estrategias digitales inteligentes. Somos el Sistema de Conversión que ha escalado los sectores más exigentes por 15 años. Nuestra metodología no depende del mercado, sino de una estructura de análisis y ejecución diseñada para acelerar tus ventas.</p>
     </div>
-    <div class="team-grid">
-
-      <div class="team-card reveal">
-        <div class="team-avatar">
-          <!-- Replace with: <img src="path/to/photo.jpg" alt="Nombre"> -->
-          <div class="team-avatar-placeholder">JR</div>
-        </div>
-        <h3 class="team-name">Nombre Apellido</h3>
-        <p class="team-role">CEO & Fundador</p>
-        <p class="team-bio">Estratega digital con +15 años liderando proyectos de conversión en los sectores más exigentes.</p>
-        <div class="team-social">
-          <a href="#" aria-label="LinkedIn">in</a>
-          <a href="#" aria-label="Twitter">X</a>
-        </div>
+    <div class="about-video-container reveal">
+      <div class="about-video-glow"></div>
+      <div class="about-video-frame"></div>
+      <div class="about-video-frame-rotated"></div>
+      <div class="about-video-wrap">
+        <canvas id="aboutCanvas"></canvas>
+        <span class="about-video-label">Nuestro equipo</span>
       </div>
-
-      <div class="team-card reveal">
-        <div class="team-avatar">
-          <div class="team-avatar-placeholder">ML</div>
-        </div>
-        <h3 class="team-name">Nombre Apellido</h3>
-        <p class="team-role">Directora de Estrategia</p>
-        <p class="team-bio">Especialista en arquitectura de conversión y metodologías de crecimiento basadas en datos.</p>
-        <div class="team-social">
-          <a href="#" aria-label="LinkedIn">in</a>
-          <a href="#" aria-label="Twitter">X</a>
-        </div>
-      </div>
-
-      <div class="team-card reveal">
-        <div class="team-avatar">
-          <div class="team-avatar-placeholder">CA</div>
-        </div>
-        <h3 class="team-name">Nombre Apellido</h3>
-        <p class="team-role">Director de Tecnología</p>
-        <p class="team-bio">Arquitecto de la plataforma NEXUS AI. Experto en inteligencia artificial y automatización omnicanal.</p>
-        <div class="team-social">
-          <a href="#" aria-label="LinkedIn">in</a>
-          <a href="#" aria-label="Twitter">X</a>
-        </div>
-      </div>
-
-      <div class="team-card reveal">
-        <div class="team-avatar">
-          <div class="team-avatar-placeholder">DP</div>
-        </div>
-        <h3 class="team-name">Nombre Apellido</h3>
-        <p class="team-role">Head of Growth</p>
-        <p class="team-bio">Growth Hacker enfocado en escalar ventas. Diseña experimentos y optimiza embudos de conversión.</p>
-        <div class="team-social">
-          <a href="#" aria-label="LinkedIn">in</a>
-          <a href="#" aria-label="Twitter">X</a>
-        </div>
-      </div>
-
+      <video id="aboutVideoSrc" muted playsinline preload="auto" style="display:none">
+        <source src="video-quienes-somos.mp4" type="video/mp4">
+      </video>
     </div>
   </div>
+
 </section>
 
 <!-- Specs -->
@@ -1373,6 +1438,85 @@ heroSpline.addEventListener('touchmove', function(e) {
   touchStartY = e.touches[0].clientY;
   window.scrollBy(0, deltaY);
 }, { passive: true });
+
+/* ===== SCROLL-DRIVEN VIDEO (frame extraction + canvas) ===== */
+(function() {
+  var video = document.getElementById('aboutVideoSrc');
+  var canvas = document.getElementById('aboutCanvas');
+  var section = document.getElementById('about');
+  if (!video || !canvas || !section) return;
+
+  var ctx = canvas.getContext('2d');
+  var frames = [];
+  var totalFrames = 60; // Extract ~60 frames for smooth scrubbing
+  var extracting = false;
+  var ready = false;
+  var currentFrame = 0;
+  var targetFrame = 0;
+
+  video.addEventListener('loadedmetadata', function() {
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    extractFrames();
+  });
+
+  function extractFrames() {
+    if (extracting) return;
+    extracting = true;
+    var duration = video.duration;
+    var frameIndex = 0;
+
+    function grabNextFrame() {
+      if (frameIndex >= totalFrames) {
+        ready = true;
+        extracting = false;
+        // Draw first frame
+        if (frames[0]) ctx.drawImage(frames[0], 0, 0);
+        renderLoop();
+        return;
+      }
+      var time = (frameIndex / (totalFrames - 1)) * duration;
+      video.currentTime = time;
+    }
+
+    video.addEventListener('seeked', function onSeeked() {
+      // Capture frame to an offscreen canvas as ImageBitmap
+      var offscreen = document.createElement('canvas');
+      offscreen.width = video.videoWidth;
+      offscreen.height = video.videoHeight;
+      var offCtx = offscreen.getContext('2d');
+      offCtx.drawImage(video, 0, 0);
+      frames[frameIndex] = offscreen;
+      frameIndex++;
+      grabNextFrame();
+    });
+
+    grabNextFrame();
+  }
+
+  // Track scroll position
+  window.addEventListener('scroll', function() {
+    if (!ready) return;
+    var rect = section.getBoundingClientRect();
+    var sectionH = section.offsetHeight;
+    var winH = window.innerHeight;
+    var progress = (winH - rect.top) / (winH + sectionH);
+    progress = Math.max(0, Math.min(1, progress));
+    targetFrame = Math.round(progress * (totalFrames - 1));
+  }, { passive: true });
+
+  function renderLoop() {
+    if (!ready) return;
+    // Smooth lerp between current and target frame
+    var diff = targetFrame - currentFrame;
+    currentFrame += diff * 0.12;
+    var drawIndex = Math.round(Math.max(0, Math.min(currentFrame, totalFrames - 1)));
+    if (frames[drawIndex]) {
+      ctx.drawImage(frames[drawIndex], 0, 0);
+    }
+    requestAnimationFrame(renderLoop);
+  }
+})();
 
 /* ===== SMOOTH ANCHORS ===== */
 document.querySelectorAll('a[href^="#"]').forEach(function(a) {
