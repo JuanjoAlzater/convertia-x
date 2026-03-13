@@ -1448,55 +1448,63 @@ heroSpline.addEventListener('touchmove', function(e) {
 
   var ctx = canvas.getContext('2d');
   var frames = [];
-  var totalFrames = 60; // Extract ~60 frames for smooth scrubbing
-  var extracting = false;
+  var totalFrames = 60;
   var ready = false;
   var currentFrame = 0;
   var targetFrame = 0;
+  var firstFrameDrawn = false;
+
+  // Show first frame ASAP — fires when enough data to display a frame
+  video.addEventListener('loadeddata', function() {
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    // Draw frame 0 immediately so canvas isn't black
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    firstFrameDrawn = true;
+  });
 
   video.addEventListener('loadedmetadata', function() {
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
-    extractFrames();
+    // Start extracting after a tiny delay to let first frame paint
+    setTimeout(extractFrames, 100);
   });
 
   function extractFrames() {
-    if (extracting) return;
-    extracting = true;
     var duration = video.duration;
     var frameIndex = 0;
 
-    function grabNextFrame() {
+    function grabNext() {
       if (frameIndex >= totalFrames) {
         ready = true;
-        extracting = false;
-        // Draw first frame
-        if (frames[0]) ctx.drawImage(frames[0], 0, 0);
         renderLoop();
         return;
       }
-      var time = (frameIndex / (totalFrames - 1)) * duration;
-      video.currentTime = time;
+      video.currentTime = (frameIndex / (totalFrames - 1)) * duration;
     }
 
-    video.addEventListener('seeked', function onSeeked() {
-      // Capture frame to an offscreen canvas as ImageBitmap
+    video.addEventListener('seeked', function() {
       var offscreen = document.createElement('canvas');
       offscreen.width = video.videoWidth;
       offscreen.height = video.videoHeight;
-      var offCtx = offscreen.getContext('2d');
-      offCtx.drawImage(video, 0, 0);
+      offscreen.getContext('2d').drawImage(video, 0, 0);
       frames[frameIndex] = offscreen;
+
+      // Draw first extracted frame if canvas was still black
+      if (frameIndex === 0 && !firstFrameDrawn) {
+        ctx.drawImage(offscreen, 0, 0);
+        firstFrameDrawn = true;
+      }
+
       frameIndex++;
-      grabNextFrame();
+      grabNext();
     });
 
-    grabNextFrame();
+    grabNext();
   }
 
-  // Track scroll position
+  // Track scroll position (works even before extraction finishes)
   window.addEventListener('scroll', function() {
-    if (!ready) return;
     var rect = section.getBoundingClientRect();
     var sectionH = section.offsetHeight;
     var winH = window.innerHeight;
@@ -1507,7 +1515,6 @@ heroSpline.addEventListener('touchmove', function(e) {
 
   function renderLoop() {
     if (!ready) return;
-    // Smooth lerp between current and target frame
     var diff = targetFrame - currentFrame;
     currentFrame += diff * 0.12;
     var drawIndex = Math.round(Math.max(0, Math.min(currentFrame, totalFrames - 1)));
