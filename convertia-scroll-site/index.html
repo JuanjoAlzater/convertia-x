@@ -210,7 +210,7 @@ body {
   position: absolute;
   border-radius: 50%;
   filter: blur(80px);
-  opacity: 0.5;
+  opacity: 0.25;
   animation: orbFloat 8s ease-in-out infinite;
 }
 .hero-mobile-bg .hero-orb:nth-child(1) {
@@ -245,7 +245,7 @@ body {
   top: 35%; left: 50%;
   transform: translate(-50%, -50%);
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(var(--accent-rgb), 0.35) 0%, rgba(var(--accent-rgb), 0.08) 40%, transparent 70%);
+  background: radial-gradient(circle, rgba(var(--accent-rgb), 0.15) 0%, rgba(var(--accent-rgb), 0.04) 40%, transparent 70%);
   animation: pulseGlow 4s ease-in-out infinite;
 }
 @keyframes orbFloat {
@@ -253,8 +253,8 @@ body {
   50% { transform: translateY(-30px) scale(1.05); }
 }
 @keyframes pulseGlow {
-  0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
-  50% { opacity: 1; transform: translate(-50%, -50%) scale(1.15); }
+  0%, 100% { opacity: 0.4; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 0.7; transform: translate(-50%, -50%) scale(1.15); }
 }
 .hero-overlay {
   position: absolute;
@@ -302,7 +302,7 @@ body {
   line-height: 1.7;
 }
 /* Mobile-only hero text — hidden on desktop where Spline scene has its own text */
-.hero-title-mobile, .hero-subtitle-mobile { display: none; }
+.hero-title-mobile { display: none; }
 
 .hero-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
 .btn-primary {
@@ -689,36 +689,30 @@ footer {
   .nav-inner { padding: 10px 20px; }
   #navbar.nav-scrolled .nav-inner { padding: 8px 20px; }
 
-  #hero { min-height: 100svh; align-items: center; }
+  #hero { min-height: auto; align-items: center; padding-top: 90px; }
   /* Hide Spline on mobile, show animated background */
   .hero-spline { display: none; }
   .hero-mobile-bg { display: block; }
   .hero-title-mobile {
     display: block;
     font-family: var(--font-heading);
-    font-size: clamp(2.2rem, 10vw, 3.5rem);
-    font-weight: 700;
-    line-height: 1.1;
-    letter-spacing: -1px;
-    margin-bottom: 16px;
+    font-size: clamp(1.8rem, 8vw, 2.8rem);
+    font-weight: 600;
+    line-height: 1.25;
+    letter-spacing: -0.5px;
+    margin-bottom: 20px;
+    color: rgba(255, 255, 255, 0.92);
   }
-  .hero-title-mobile span { color: var(--accent); }
-  .hero-subtitle-mobile {
-    display: block;
-    font-size: 1rem;
-    color: var(--text-secondary);
-    line-height: 1.6;
-    margin-bottom: 24px;
-    max-width: 400px;
-    margin-left: auto;
-    margin-right: auto;
+  .hero-title-mobile span {
+    color: var(--accent);
+    text-shadow: 0 0 30px rgba(var(--accent-rgb), 0.3);
   }
-  .hero-content { padding: 0 20px 40px; }
-  .hero-tag { font-size: 0.7rem; letter-spacing: 2px; margin-bottom: 16px; }
-  .hero-buttons { gap: 12px; }
+  .hero-content { padding: 0 20px 30px; }
+  .hero-tag { font-size: 0.7rem; letter-spacing: 2px; margin-bottom: 14px; }
+  .hero-buttons { gap: 10px; }
   .btn-primary, .btn-secondary { padding: 12px 24px; font-size: 0.9rem; }
 
-  #about { padding: 80px 20px; }
+  #about { padding: 30px 20px; }
   .section-title { font-size: clamp(1.5rem, 5vw, 2.2rem); }
   .section-text { font-size: 0.95rem; }
 
@@ -894,8 +888,7 @@ footer {
   </div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <h1 class="hero-title-mobile">Sistema de<br><span>Conversión</span> Digital</h1>
-    <p class="hero-subtitle-mobile">No gestionamos campañas, diseñamos rutas de crecimiento</p>
+    <h1 class="hero-title-mobile">Una metodología completa para <span>transformar leads</span> en <span>ventas reales</span></h1>
     <p class="hero-tag">Atrae &middot; Convierte &middot; Crece</p>
     <div class="hero-buttons">
       <a href="#cta" class="btn-primary">Empezar a Convertir</a>
