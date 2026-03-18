@@ -679,6 +679,17 @@ body {
   z-index: 1;
   padding: 100px 32px;
 }
+.service-icon {
+  font-size: 2.8rem;
+  margin-bottom: 20px;
+  display: inline-block;
+  filter: drop-shadow(0 0 12px rgba(var(--accent-rgb), 0.8));
+  animation: neonPulse 2s infinite alternate;
+}
+@keyframes neonPulse {
+  from { filter: drop-shadow(0 0 8px rgba(var(--accent-rgb), 0.5)); transform: scale(1); }
+  to { filter: drop-shadow(0 0 16px rgba(var(--accent-rgb), 1)); transform: scale(1.05); }
+}
 .services-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -709,9 +720,11 @@ body {
 }
 .service-card h3 {
   font-family: var(--font-heading);
-  font-size: 1.3rem;
-  font-weight: 600;
+  font-size: 1.4rem;
+  font-weight: 700;
   margin-bottom: 12px;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(var(--accent-rgb), 0.6);
 }
 .service-card p {
   font-size: 0.92rem;
@@ -830,6 +843,90 @@ body {
 }
 .btn-large { font-size: 1.1rem; padding: 18px 48px; }
 
+/* ===== RESULTS ===== */
+#results {
+  position: relative;
+  z-index: 1;
+  padding: 100px 32px;
+  background: linear-gradient(180deg, rgba(var(--accent-rgb), 0.02) 0%, transparent 100%);
+}
+.results-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.result-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 20px;
+  padding: 40px 30px;
+  text-align: center;
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+.result-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(var(--accent-rgb), 0.3);
+  box-shadow: 0 10px 30px rgba(var(--accent-rgb), 0.1);
+}
+.result-stat {
+  font-family: var(--font-heading);
+  font-size: 2.8rem;
+  font-weight: 700;
+  color: var(--accent);
+  text-shadow: 0 0 20px rgba(var(--accent-rgb), 0.6);
+  margin-bottom: 16px;
+  display: block;
+}
+.result-desc {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ===== CLIENTS ===== */
+#clients {
+  position: relative;
+  z-index: 1;
+  padding: 80px 32px 100px;
+  overflow: hidden;
+}
+.clients-marquee {
+  display: flex;
+  gap: 40px;
+  width: max-content;
+  animation: scrollMarquee 30s linear infinite;
+  padding: 20px 0;
+}
+@keyframes scrollMarquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.client-logo {
+  width: 160px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.5rem;
+  color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+.client-logo:hover {
+  background: rgba(var(--accent-rgb), 0.1);
+  border-color: rgba(var(--accent-rgb), 0.3);
+  color: var(--accent);
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.2);
+}
+
 /* ===== FOOTER ===== */
 footer {
   position: relative;
@@ -886,6 +983,7 @@ footer {
   .features-grid { grid-template-columns: repeat(2, 1fr); }
   .packages-grid { grid-template-columns: 1fr; max-width: 520px; }
   .services-grid { gap: 20px; }
+  .results-grid { grid-template-columns: repeat(2, 1fr); }
   .service-card { padding: 32px; }
   #about { padding: 100px 24px; }
   #cta { padding: 100px 24px; }
@@ -946,6 +1044,9 @@ footer {
   .services-grid { grid-template-columns: 1fr; }
   #services { padding: 60px 20px; }
   .service-card { padding: 28px; }
+  .results-grid { grid-template-columns: 1fr; }
+  #results { padding: 60px 20px; }
+  #clients { padding: 60px 20px; }
   .team-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
   .team-section { margin-top: 50px; }
   .team-avatar { width: 80px; height: 80px; }
@@ -1004,6 +1105,11 @@ footer {
   .service-tag { font-size: 0.6rem; }
   .service-card h3 { font-size: 1.15rem; }
   .service-card p { font-size: 0.85rem; }
+  #results { padding: 50px 16px; }
+  .result-card { padding: 30px 20px; }
+  .result-stat { font-size: 2.2rem; }
+  #clients { padding: 50px 16px; }
+  .client-logo { width: 120px; height: 60px; font-size: 1.8rem; }
 
   #packages { padding: 50px 16px; }
   .package-card { padding: 24px 20px; }
@@ -1137,7 +1243,7 @@ footer {
     <div class="about-inner reveal">
       <p class="section-tag">Quiénes Somos</p>
       <h2 class="section-title">Estrategia con precisión, resultados con impacto</h2>
-      <p class="section-text">En Convertia, transformamos objetivos en resultados a través de estrategias digitales inteligentes. Somos el Sistema de Conversión que ha escalado los sectores más exigentes por 15 años. Nuestra metodología no depende del mercado, sino de una estructura de análisis y ejecución diseñada para acelerar tus ventas.</p>
+      <p class="section-text">Somos una agencia de marketing digital enfocada en convertir objetivos en resultados reales. Durante más de 15 años hemos impulsado el crecimiento de empresas en sectores altamente competitivos, a través de estrategias inteligentes, medibles y orientadas a ventas. No dependemos de tendencias ni del mercado: trabajamos con un sistema propio de análisis y ejecución que optimiza cada punto del proceso comercial para acelerar la conversión y maximizar el retorno de tu inversión.</p>
     </div>
     <div class="about-video-container reveal">
       <div class="about-video-glow"></div>
@@ -1230,34 +1336,74 @@ footer {
   </div>
   <div class="services-grid">
     <div class="service-card reveal">
+      <div class="service-icon">🤖</div>
       <p class="service-tag">Plataforma AI</p>
       <h3>NEXUS Omnicanal</h3>
       <p>Sistema de IA que unifica tu comunicación. Gestiona seguimientos, sincroniza agendas y cierra citas de venta. El 100% de tus leads reciben atención personalizada y seguimiento persistente.</p>
     </div>
     <div class="service-card reveal">
+      <div class="service-icon">🚀</div>
       <p class="service-tag">Crecimiento</p>
       <h3>Growth Hacking</h3>
       <p>Analiza el comportamiento del usuario, prueba hipótesis y optimiza el embudo completo para mejorar conversiones y acelerar ingresos, maximizando el presupuesto.</p>
     </div>
     <div class="service-card reveal">
+      <div class="service-icon">✨</div>
       <p class="service-tag">Estrategia</p>
       <h3>Metodología MAGIA</h3>
       <p>Maximización, Alcance, Generación, Impacto, Atracción. Transforma la estrategia en una herramienta viva que genera valor real a la marca.</p>
     </div>
     <div class="service-card reveal">
+      <div class="service-icon">🏛️</div>
       <p class="service-tag">Branding</p>
       <h3>Arquitectura ARCO</h3>
       <p>Diseñamos marcas con estructura estratégica, capaces de adaptarse, escalar y conectar. Autenticidad, Relevancia, Conectividad y Originalidad.</p>
     </div>
     <div class="service-card reveal">
+      <div class="service-icon">📈</div>
       <p class="service-tag">Medios</p>
       <h3>Smart Media Amplify</h3>
       <p>No compramos medios: activamos resultados. Optimizamos cada canal y amplificamos el impacto real de tu inversión publicitaria con enfoque en conversión.</p>
     </div>
     <div class="service-card reveal">
+      <div class="service-icon">♟️</div>
       <p class="service-tag">Workshop</p>
       <h3>Sesiones Estratégicas</h3>
       <p>Decidir es un proceso, no un impulso. Sesiones con equipo directivo para debates estratégicos de crecimiento orgánico, geográfico y de portafolio.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Results -->
+<section id="results">
+  <div class="features-header reveal">
+    <p class="section-tag">Nuestros Logros</p>
+    <h2 class="section-title">Resultados que hablan por nosotros</h2>
+  </div>
+  <div class="results-grid">
+    <div class="result-card reveal" style="transition-delay: 0.1s;">
+      <span class="result-stat">+62%</span>
+      <p class="result-desc">En retorno sobre la inversión publicitaria (ROAS)</p>
+    </div>
+    <div class="result-card reveal" style="transition-delay: 0.2s;">
+      <span class="result-stat">Hasta +34%</span>
+      <p class="result-desc">En crecimiento de ventas</p>
+    </div>
+    <div class="result-card reveal" style="transition-delay: 0.3s;">
+      <span class="result-stat">+72%</span>
+      <p class="result-desc">En incremento y conversión de leads</p>
+    </div>
+    <div class="result-card reveal" style="transition-delay: 0.4s;">
+      <span class="result-stat">48%</span>
+      <p class="result-desc">Optimización en la carga administrativa del equipo comercial. (respuestas y citas programadas vía NEXUS IA)</p>
+    </div>
+    <div class="result-card reveal" style="transition-delay: 0.5s;">
+      <span class="result-stat">-95%</span>
+      <p class="result-desc">Reducción en el tiempo de respuesta inicial; NEXUS AI</p>
+    </div>
+    <div class="result-card reveal" style="transition-delay: 0.6s;">
+      <span class="result-stat">+60%</span>
+      <p class="result-desc">Mejora en la calidad del lead</p>
     </div>
   </div>
 </section>
@@ -1276,8 +1422,6 @@ footer {
       <ul class="package-features">
         <li>Workshop Estratégico de Portafolio</li>
         <li>Landing Page de Alta Conversión</li>
-        <li>NEXUS AI — Automatización inicial</li>
-        <li>2 Videos de alto impacto</li>
         <li>6 Piezas gráficas estratégicas</li>
       </ul>
       <a href="#cta" class="btn-secondary" style="text-align:center">Conocer Más</a>
@@ -1289,7 +1433,7 @@ footer {
       <ul class="package-features">
         <li>Workshop Maestro de Marketing</li>
         <li>Landing Page de Alta Conversión</li>
-        <li>NEXUS Full AI — Gestión autónoma</li>
+        <li>Nexus AI (Chatbot con limite de conversaciones)</li>
         <li>5 Videos de Producción Premium</li>
         <li>8 Piezas Gráficas de Conversión</li>
       </ul>
@@ -1302,12 +1446,36 @@ footer {
       <ul class="package-features">
         <li>Workshop Estratégico Integral</li>
         <li>Landing Page persuasiva y estratégica</li>
-        <li>NEXUS AI Enterprise — Omnicanal avanzado</li>
-        <li>10 Videos de Alta Performance</li>
+        <li>Pre produccion de videos y dia de rodaje profesional</li>
+        <li>Nexus AI con CRM</li>
         <li>10 Piezas Gráficas Premium</li>
       </ul>
       <a href="#cta" class="btn-secondary" style="text-align:center">Conocer Más</a>
     </div>
+  </div>
+</section>
+
+<!-- Clients -->
+<section id="clients">
+  <div class="features-header reveal">
+    <p class="section-tag">Confían en nosotros</p>
+    <h2 class="section-title">Nuestros Clientes</h2>
+  </div>
+  <div class="clients-marquee">
+    <div class="client-logo">🌍</div>
+    <div class="client-logo">⚡</div>
+    <div class="client-logo">🔥</div>
+    <div class="client-logo">🏢</div>
+    <div class="client-logo">💡</div>
+    <div class="client-logo">🛒</div>
+    <div class="client-logo">🚀</div>
+    <div class="client-logo">🌍</div>
+    <div class="client-logo">⚡</div>
+    <div class="client-logo">🔥</div>
+    <div class="client-logo">🏢</div>
+    <div class="client-logo">💡</div>
+    <div class="client-logo">🛒</div>
+    <div class="client-logo">🚀</div>
   </div>
 </section>
 
