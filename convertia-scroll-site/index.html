@@ -906,25 +906,36 @@ body {
   100% { transform: translateX(-50%); }
 }
 .client-logo {
-  width: 160px;
-  height: 80px;
-  background: rgba(255, 255, 255, 0.03);
+  width: 200px;
+  height: 110px;
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2.5rem;
-  color: rgba(255, 255, 255, 0.4);
+  padding: 14px;
   backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+.client-logo img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  filter: grayscale(100%) brightness(1.6);
+  opacity: 0.7;
   transition: all 0.3s ease;
 }
 .client-logo:hover {
   background: rgba(var(--accent-rgb), 0.1);
   border-color: rgba(var(--accent-rgb), 0.3);
-  color: var(--accent);
   transform: scale(1.05);
   box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.2);
+}
+.client-logo:hover img {
+  filter: grayscale(0%) brightness(1);
+  opacity: 1;
 }
 
 /* ===== FOOTER ===== */
@@ -1109,7 +1120,7 @@ footer {
   .result-card { padding: 30px 20px; }
   .result-stat { font-size: 2.2rem; }
   #clients { padding: 50px 16px; }
-  .client-logo { width: 120px; height: 60px; font-size: 1.8rem; }
+  .client-logo { width: 150px; height: 80px; padding: 10px; }
 
   #packages { padding: 50px 16px; }
   .package-card { padding: 24px 20px; }
@@ -1462,20 +1473,26 @@ footer {
     <h2 class="section-title">Nuestros Clientes</h2>
   </div>
   <div class="clients-marquee">
-    <div class="client-logo">🌍</div>
-    <div class="client-logo">⚡</div>
-    <div class="client-logo">🔥</div>
-    <div class="client-logo">🏢</div>
-    <div class="client-logo">💡</div>
-    <div class="client-logo">🛒</div>
-    <div class="client-logo">🚀</div>
-    <div class="client-logo">🌍</div>
-    <div class="client-logo">⚡</div>
-    <div class="client-logo">🔥</div>
-    <div class="client-logo">🏢</div>
-    <div class="client-logo">💡</div>
-    <div class="client-logo">🛒</div>
-    <div class="client-logo">🚀</div>
+    <!-- First set -->
+    <div class="client-logo"><img src="clientes/ceramica-italia.png" alt="Cerámica Italia"></div>
+    <div class="client-logo"><img src="clientes/grupo-gexo.png" alt="Grupo Gexo"></div>
+    <div class="client-logo"><img src="clientes/matecsa.png" alt="Matecsa"></div>
+    <div class="client-logo"><img src="clientes/docokids.png" alt="Docokids"></div>
+    <div class="client-logo"><img src="clientes/atelier-colombia.png" alt="Atelier Colombia"></div>
+    <div class="client-logo"><img src="clientes/bigarden.png" alt="BiGarden"></div>
+    <div class="client-logo"><img src="clientes/aires-de-palermo.png" alt="Aires de Palermo"></div>
+    <div class="client-logo"><img src="clientes/altua.png" alt="Altua Multifamiliar"></div>
+    <div class="client-logo"><img src="clientes/acesco.png" alt="Acesco"></div>
+    <!-- Duplicate for seamless loop -->
+    <div class="client-logo"><img src="clientes/ceramica-italia.png" alt="Cerámica Italia"></div>
+    <div class="client-logo"><img src="clientes/grupo-gexo.png" alt="Grupo Gexo"></div>
+    <div class="client-logo"><img src="clientes/matecsa.png" alt="Matecsa"></div>
+    <div class="client-logo"><img src="clientes/docokids.png" alt="Docokids"></div>
+    <div class="client-logo"><img src="clientes/atelier-colombia.png" alt="Atelier Colombia"></div>
+    <div class="client-logo"><img src="clientes/bigarden.png" alt="BiGarden"></div>
+    <div class="client-logo"><img src="clientes/aires-de-palermo.png" alt="Aires de Palermo"></div>
+    <div class="client-logo"><img src="clientes/altua.png" alt="Altua Multifamiliar"></div>
+    <div class="client-logo"><img src="clientes/acesco.png" alt="Acesco"></div>
   </div>
 </section>
 
