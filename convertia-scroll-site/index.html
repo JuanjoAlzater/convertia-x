@@ -27,10 +27,11 @@
 <meta name="theme-color" content="#00FF88">
 <meta name="msapplication-TileColor" content="#0a0f0a">
 
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Archivo:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.82/build/spline-viewer.js"></script>
+<script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.82/build/spline-viewer.js" crossorigin="anonymous"></script>
 <style>
 :root {
   --accent: #00FF88;
@@ -473,6 +474,16 @@ body {
 /* Desktop: show canvas, hide mobile video */
 .about-canvas-desktop { display: block; }
 .about-video-wrap .about-video-mobile { display: none; }
+.about-video-hidden { display: none; }
+/* Result card staggered delays */
+.result-card.delay-1 { transition-delay: 0.1s; }
+.result-card.delay-2 { transition-delay: 0.2s; }
+.result-card.delay-3 { transition-delay: 0.3s; }
+.result-card.delay-4 { transition-delay: 0.4s; }
+.result-card.delay-5 { transition-delay: 0.5s; }
+.result-card.delay-6 { transition-delay: 0.6s; }
+/* Plan button centering */
+.plan-btn-center { text-align: center; }
 .about-video-label {
   position: absolute;
   bottom: 14px;
@@ -1270,7 +1281,7 @@ footer {
         </video>
         <span class="about-video-label">Nuestro equipo</span>
       </div>
-      <video id="aboutVideoSrc" muted playsinline preload="auto" style="display:none">
+      <video id="aboutVideoSrc" muted playsinline preload="metadata" class="about-video-hidden">
         <source src="video-nosotros.mp4" type="video/mp4">
       </video>
     </div>
@@ -1393,27 +1404,27 @@ footer {
     <h2 class="section-title">Resultados que hablan por nosotros</h2>
   </div>
   <div class="results-grid">
-    <div class="result-card reveal" style="transition-delay: 0.1s;">
+    <div class="result-card reveal delay-1">
       <span class="result-stat">+62%</span>
       <p class="result-desc">En retorno sobre la inversión publicitaria (ROAS)</p>
     </div>
-    <div class="result-card reveal" style="transition-delay: 0.2s;">
+    <div class="result-card reveal delay-2">
       <span class="result-stat">Hasta +34%</span>
       <p class="result-desc">En crecimiento de ventas</p>
     </div>
-    <div class="result-card reveal" style="transition-delay: 0.3s;">
+    <div class="result-card reveal delay-3">
       <span class="result-stat">+72%</span>
       <p class="result-desc">En incremento y conversión de leads</p>
     </div>
-    <div class="result-card reveal" style="transition-delay: 0.4s;">
+    <div class="result-card reveal delay-4">
       <span class="result-stat">48%</span>
       <p class="result-desc">Optimización en la carga administrativa del equipo comercial. (respuestas y citas programadas vía NEXUS IA)</p>
     </div>
-    <div class="result-card reveal" style="transition-delay: 0.5s;">
+    <div class="result-card reveal delay-5">
       <span class="result-stat">-95%</span>
       <p class="result-desc">Reducción en el tiempo de respuesta inicial; NEXUS AI</p>
     </div>
-    <div class="result-card reveal" style="transition-delay: 0.6s;">
+    <div class="result-card reveal delay-6">
       <span class="result-stat">+60%</span>
       <p class="result-desc">Mejora en la calidad del lead</p>
     </div>
@@ -1436,7 +1447,7 @@ footer {
         <li>Landing Page de Alta Conversión</li>
         <li>6 Piezas gráficas estratégicas</li>
       </ul>
-      <a href="#cta" class="btn-secondary" style="text-align:center">Conocer Más</a>
+      <a href="#cta" class="btn-secondary plan-btn-center">Conocer Más</a>
     </div>
     <div class="package-card featured reveal">
       <p class="package-level">Nivel Crecimiento</p>
@@ -1449,7 +1460,7 @@ footer {
         <li>5 Videos de Producción Premium</li>
         <li>8 Piezas Gráficas de Conversión</li>
       </ul>
-      <a href="#cta" class="btn-primary" style="text-align:center">Elegir Este Plan</a>
+      <a href="#cta" class="btn-primary plan-btn-center">Elegir Este Plan</a>
     </div>
     <div class="package-card reveal">
       <p class="package-level">Nivel Expansión</p>
@@ -1462,7 +1473,7 @@ footer {
         <li>Nexus AI con CRM</li>
         <li>10 Piezas Gráficas Premium</li>
       </ul>
-      <a href="#cta" class="btn-secondary" style="text-align:center">Conocer Más</a>
+      <a href="#cta" class="btn-secondary plan-btn-center">Conocer Más</a>
     </div>
   </div>
 </section>
@@ -1475,25 +1486,25 @@ footer {
   </div>
   <div class="clients-marquee">
     <!-- First set -->
-    <div class="client-logo"><img src="clientes/ceramica-italia.png" alt="Cerámica Italia"></div>
-    <div class="client-logo"><img src="clientes/grupo-gexo.png" alt="Grupo Gexo"></div>
-    <div class="client-logo"><img src="clientes/matecsa.png" alt="Matecsa"></div>
-    <div class="client-logo"><img src="clientes/docokids.png" alt="Docokids"></div>
-    <div class="client-logo"><img src="clientes/atelier-colombia.png" alt="Atelier Colombia"></div>
-    <div class="client-logo"><img src="clientes/bigarden.png" alt="BiGarden"></div>
-    <div class="client-logo"><img src="clientes/aires-de-palermo.png" alt="Aires de Palermo"></div>
-    <div class="client-logo"><img src="clientes/altua.png" alt="Altua Multifamiliar"></div>
-    <div class="client-logo"><img src="clientes/acesco.png" alt="Acesco"></div>
+    <div class="client-logo"><img src="clientes/ceramica-italia.png" alt="Cerámica Italia" width="270" height="164" loading="lazy" decoding="async"></div>
+    <div class="client-logo"><img src="clientes/grupo-gexo.png" alt="Grupo Gexo" width="311" height="108" loading="lazy" decoding="async"></div>
+    <div class="client-logo"><img src="clientes/matecsa.png" alt="Matecsa" width="200" height="200" loading="lazy" decoding="async"></div>
+    <div class="client-logo"><img src="clientes/docokids.png" alt="Docokids" width="474" height="106" loading="lazy" decoding="async"></div>
+    <div class="client-logo"><img src="clientes/atelier-colombia.png" alt="Atelier Colombia" width="450" height="125" loading="lazy" decoding="async"></div>
+    <div class="client-logo"><img src="clientes/bigarden.png" alt="BiGarden" width="225" height="225" loading="lazy" decoding="async"></div>
+    <div class="client-logo"><img src="clientes/aires-de-palermo.png" alt="Aires de Palermo" width="300" height="317" loading="lazy" decoding="async"></div>
+    <div class="client-logo"><img src="clientes/altua.png" alt="Altua Multifamiliar" width="482" height="220" loading="lazy" decoding="async"></div>
+    <div class="client-logo"><img src="clientes/acesco.png" alt="Acesco" width="200" height="200" loading="lazy" decoding="async"></div>
     <!-- Duplicate for seamless loop -->
-    <div class="client-logo"><img src="clientes/ceramica-italia.png" alt="Cerámica Italia"></div>
-    <div class="client-logo"><img src="clientes/grupo-gexo.png" alt="Grupo Gexo"></div>
-    <div class="client-logo"><img src="clientes/matecsa.png" alt="Matecsa"></div>
-    <div class="client-logo"><img src="clientes/docokids.png" alt="Docokids"></div>
-    <div class="client-logo"><img src="clientes/atelier-colombia.png" alt="Atelier Colombia"></div>
-    <div class="client-logo"><img src="clientes/bigarden.png" alt="BiGarden"></div>
-    <div class="client-logo"><img src="clientes/aires-de-palermo.png" alt="Aires de Palermo"></div>
-    <div class="client-logo"><img src="clientes/altua.png" alt="Altua Multifamiliar"></div>
-    <div class="client-logo"><img src="clientes/acesco.png" alt="Acesco"></div>
+    <div class="client-logo"><img src="clientes/ceramica-italia.png" alt="Cerámica Italia" width="270" height="164" loading="lazy" decoding="async"></div>
+    <div class="client-logo"><img src="clientes/grupo-gexo.png" alt="Grupo Gexo" width="311" height="108" loading="lazy" decoding="async"></div>
+    <div class="client-logo"><img src="clientes/matecsa.png" alt="Matecsa" width="200" height="200" loading="lazy" decoding="async"></div>
+    <div class="client-logo"><img src="clientes/docokids.png" alt="Docokids" width="474" height="106" loading="lazy" decoding="async"></div>
+    <div class="client-logo"><img src="clientes/atelier-colombia.png" alt="Atelier Colombia" width="450" height="125" loading="lazy" decoding="async"></div>
+    <div class="client-logo"><img src="clientes/bigarden.png" alt="BiGarden" width="225" height="225" loading="lazy" decoding="async"></div>
+    <div class="client-logo"><img src="clientes/aires-de-palermo.png" alt="Aires de Palermo" width="300" height="317" loading="lazy" decoding="async"></div>
+    <div class="client-logo"><img src="clientes/altua.png" alt="Altua Multifamiliar" width="482" height="220" loading="lazy" decoding="async"></div>
+    <div class="client-logo"><img src="clientes/acesco.png" alt="Acesco" width="200" height="200" loading="lazy" decoding="async"></div>
   </div>
 </section>
 
@@ -1653,6 +1664,13 @@ heroSpline.addEventListener('touchmove', function(e) {
   var currentFrame = 0;
   var targetFrame = 0;
   var loopStarted = false;
+
+  // Handle video load errors
+  video.addEventListener('error', function() {
+    canvas.style.display = 'none';
+    var mobile = section.querySelector('.about-video-mobile');
+    if (mobile) { mobile.style.display = 'block'; mobile.autoplay = true; mobile.loop = true; mobile.play(); }
+  });
 
   // Show first frame ASAP
   video.addEventListener('loadeddata', function() {
