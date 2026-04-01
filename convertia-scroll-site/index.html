@@ -1265,7 +1265,7 @@ footer {
         <!-- Desktop: canvas for scroll-driven playback -->
         <canvas id="aboutCanvas" class="about-canvas-desktop"></canvas>
         <!-- Mobile: regular video fallback -->
-        <video class="about-video-mobile" autoplay loop muted playsinline preload="auto">
+        <video class="about-video-mobile" muted playsinline preload="auto">
           <source src="video-nosotros.mp4" type="video/mp4">
         </video>
         <span class="about-video-label">Nuestro equipo</span>
@@ -1728,6 +1728,24 @@ heroSpline.addEventListener('touchmove', function(e) {
     }
     requestAnimationFrame(renderLoop);
   }
+})();
+
+/* ===== MOBILE: play about video once when visible ===== */
+(function() {
+  if (window.innerWidth > 768) return;
+  var vid = document.querySelector('.about-video-mobile');
+  if (!vid) return;
+  var played = false;
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting && !played) {
+        played = true;
+        vid.play();
+        observer.disconnect();
+      }
+    });
+  }, { threshold: 0.4 });
+  observer.observe(vid);
 })();
 
 /* ===== SMOOTH ANCHORS ===== */
