@@ -1,1 +1,32 @@
+# Vercel
 .vercel
+
+# Environment variables
+.env
+.env.*
+.env*.local
+
+# Node
+node_modules/
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Installers & binaries
+*.msi
+*.exe
+*.zip
+*.tar.gz
+*.dmg
+
+# Extracted video frames (generated at runtime)
+frames/
+
+# Editor
+.vscode/
+*.swp
+*.swo
+*~
