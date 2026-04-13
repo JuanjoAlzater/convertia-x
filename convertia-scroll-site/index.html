@@ -1076,8 +1076,25 @@ footer {
   .team-avatar { width: 80px; height: 80px; }
   .team-card { padding: 24px 20px; }
 
-  #packages { padding: 60px 20px; }
-  .package-card { padding: 28px 24px; }
+  #packages { padding: 60px 0; }
+  #packages .features-header { padding: 0 20px; margin-bottom: 30px; }
+  .packages-grid {
+    display: flex;
+    grid-template-columns: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 20px;
+    padding: 0 20px 40px;
+    -ms-overflow-style: none; 
+    scrollbar-width: none;
+  }
+  .packages-grid::-webkit-scrollbar { display: none; }
+  .package-card { 
+    min-width: 85vw; 
+    scroll-snap-align: center; 
+    padding: 28px 24px;
+    flex-shrink: 0;
+  }
 
   #cta { padding: 80px 20px; }
   .btn-large { font-size: 1rem; padding: 16px 36px; }
