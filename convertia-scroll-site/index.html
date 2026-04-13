@@ -819,6 +819,7 @@ body {
   flex-shrink: 0;
   margin-top: 8px;
 }
+.pkg-dots { display: none; }
 
 /* ===== CTA ===== */
 #cta {
@@ -1076,25 +1077,43 @@ footer {
   .team-avatar { width: 80px; height: 80px; }
   .team-card { padding: 24px 20px; }
 
-  #packages { padding: 60px 0; }
-  #packages .features-header { padding: 0 20px; margin-bottom: 30px; }
+  #packages { padding: 60px 0; overflow: hidden; }
+  #packages .features-header { padding: 0 20px; margin-bottom: 24px; }
   .packages-grid {
-    display: flex;
-    grid-template-columns: none;
+    display: flex !important;
+    grid-template-columns: none !important;
+    max-width: none !important;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    gap: 20px;
-    padding: 0 20px 40px;
-    -ms-overflow-style: none; 
+    gap: 16px;
+    padding: 0 20px 20px;
+    -ms-overflow-style: none;
     scrollbar-width: none;
   }
   .packages-grid::-webkit-scrollbar { display: none; }
-  .package-card { 
-    min-width: 85vw; 
-    scroll-snap-align: center; 
-    padding: 28px 24px;
+  .package-card {
+    min-width: 80vw;
+    max-width: 80vw;
+    scroll-snap-align: center;
+    padding: 24px 20px;
     flex-shrink: 0;
   }
+  .package-card h3 { font-size: 1.15rem; margin-bottom: 4px; }
+  .package-level { font-size: 0.6rem; margin-bottom: 4px; }
+  .package-desc { font-size: 0.8rem; margin-bottom: 16px; line-height: 1.4; }
+  .package-features { margin-bottom: 16px; }
+  .package-features li { font-size: 0.78rem; padding: 5px 0; gap: 8px; }
+  .package-features li::before { width: 5px; height: 5px; margin-top: 6px; }
+  .pkg-toggle { font-size: 0.65rem; padding: 6px 14px; margin: 8px auto 14px; }
+  .plan-btn-center { font-size: 0.85rem; padding: 10px 20px; }
+  /* Carousel dots */
+  .pkg-dots { display: flex; justify-content: center; gap: 10px; padding-top: 8px; }
+  .pkg-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: rgba(255,255,255,0.15); border: none; cursor: pointer;
+    transition: all 0.3s ease; padding: 0;
+  }
+  .pkg-dot.active { background: var(--accent); box-shadow: 0 0 8px rgba(var(--accent-rgb),0.4); }
 
   #cta { padding: 80px 20px; }
   .btn-large { font-size: 1rem; padding: 16px 36px; }
@@ -1152,12 +1171,8 @@ footer {
   #clients { padding: 50px 16px; }
   .client-logo { width: 150px; height: 80px; padding: 10px; }
 
-  #packages { padding: 50px 16px; }
-  .package-card { padding: 24px 20px; }
-  .package-level { font-size: 0.6rem; }
-  .package-card h3 { font-size: 1.2rem; }
-  .package-desc { font-size: 0.82rem; }
-  .package-features li { font-size: 0.82rem; padding: 6px 0; }
+  .package-card { min-width: 82vw; max-width: 82vw; padding: 20px 16px; }
+  .package-features li { font-size: 0.75rem; padding: 4px 0; }
 
   #cta { padding: 60px 16px; }
   .cta-content h2 { font-size: clamp(1.4rem, 6vw, 1.8rem); }
@@ -1598,11 +1613,11 @@ footer {
       <ul class="package-features">
         <li><span><strong>Inmersión Estratégica:</strong> Sesión de consultoría (30 min) para diagnóstico de portafolio y KPIs.</span></li>
         <li><span><strong>Perfilación de ICP:</strong> Definición técnica del Buyer Persona por comportamiento e intención.</span></li>
-        <li><span><strong>Landing Page de Alta Conversión:</strong> Desarrollo web orientado a respuesta directa (Imán de Leads).</span></li>
-        <li><span><strong>Ecosistema Meta Ads:</strong> Configuración de 1 campaña en Facebook e Instagram para conversión.</span></li>
       </ul>
       <div class="pkg-extra">
         <ul class="package-features">
+          <li><span><strong>Landing Page de Alta Conversión:</strong> Desarrollo web orientado a respuesta directa (Imán de Leads).</span></li>
+          <li><span><strong>Ecosistema Meta Ads:</strong> Configuración de 1 campaña en Facebook e Instagram para conversión.</span></li>
           <li><span><strong>Creativos &amp; Copywriting:</strong> Piezas optimizadas con textos basados en gatillos mentales (AIDA).</span></li>
           <li><span><strong>Gobernanza Digital:</strong> Configuración en Business Manager y blindaje publicitario.</span></li>
           <li><span><strong>Segmentación Avanzada:</strong> Audiencias Lookalikes, Intereses y Retargeting.</span></li>
@@ -1620,11 +1635,11 @@ footer {
       <ul class="package-features">
         <li><span><strong>Inmersión Estratégica:</strong> Consultoría de 30 min para mapear objetivos y KPIs.</span></li>
         <li><span><strong>Ingeniería de ICP:</strong> Modelado técnico basado en señales de intención.</span></li>
-        <li><span><strong>Landing Page Ultra-rápida:</strong> Arquitectura optimizada para la captura de leads.</span></li>
-        <li><span><strong>Nexus AI Chatbot:</strong> Agente inteligente para automatización y captura prospectada.</span></li>
       </ul>
       <div class="pkg-extra">
         <ul class="package-features">
+          <li><span><strong>Landing Page Ultra-rápida:</strong> Arquitectura optimizada para la captura de leads.</span></li>
+          <li><span><strong>Nexus AI Chatbot:</strong> Agente inteligente para automatización y captura prospectada.</span></li>
           <li><span><strong>Ecosistema de Rastreo:</strong> Instalación de Pixel y API de Conversiones.</span></li>
           <li><span><strong>Video High-End:</strong> Producción de 5 piezas audiovisuales premium directas.</span></li>
           <li><span><strong>Gestión de Meta Ads:</strong> 2 campañas enfocadas en volumen de leads calificados.</span></li>
@@ -1643,13 +1658,13 @@ footer {
       <h3>Dominance System</h3>
       <p class="package-desc">Lidera el mercado y desplaza a la competencia. Máquina de generación de demanda imparable.</p>
       <ul class="package-features">
-        <li><span><strong>Inmersión y Debate (40 min):</strong> Alineamiento de objetivos y validación de rentabilidad mediante KPIs.</span></li>
+        <li><span><strong>Inmersión y Debate (40 min):</strong> Alineamiento de objetivos y validación de rentabilidad.</span></li>
         <li><span><strong>Ingeniería de ICP:</strong> Modelado técnico del cliente ideal por intención.</span></li>
-        <li><span><strong>Hub de Conversión:</strong> Landing ultra-rápida diseñada bajo psicología de ventas.</span></li>
-        <li><span><strong>Nexus AI CRM &amp; Leads:</strong> Sistema CRM que optimiza prospección y aumenta ventas.</span></li>
       </ul>
       <div class="pkg-extra">
         <ul class="package-features">
+          <li><span><strong>Hub de Conversión:</strong> Landing ultra-rápida diseñada bajo psicología de ventas.</span></li>
+          <li><span><strong>Nexus AI CRM &amp; Leads:</strong> Sistema CRM que optimiza prospección y aumenta ventas.</span></li>
           <li><span><strong>Ecosistema de Rastreo:</strong> Instalación avanzada de Pixel y API.</span></li>
           <li><span><strong>Contenido Audiovisual:</strong> Pre-producción y día de rodaje de 10 videos de impacto.</span></li>
           <li><span><strong>Gestión de Meta Ads:</strong> 3 campañas enfocadas en leads calificados.</span></li>
@@ -1663,6 +1678,11 @@ footer {
       <button class="pkg-toggle" aria-expanded="false"><span class="toggle-label">Ver más</span><span class="chevron"></span></button>
       <a href="#cta" class="btn-secondary plan-btn-center">Conocer Más</a>
     </div>
+  </div>
+  <div class="pkg-dots" aria-label="Navegación de paquetes">
+    <button class="pkg-dot active" data-index="0" aria-label="Plan 1"></button>
+    <button class="pkg-dot" data-index="1" aria-label="Plan 2"></button>
+    <button class="pkg-dot" data-index="2" aria-label="Plan 3"></button>
   </div>
 </section>
 
@@ -2100,6 +2120,48 @@ document.querySelectorAll('.pkg-toggle').forEach(function(btn) {
     label.textContent = isOpen ? 'Ver menos' : 'Ver más';
   });
 });
+
+/* ===== CAROUSEL DOTS ===== */
+(function() {
+  var grid = document.querySelector('.packages-grid');
+  var dots = document.querySelectorAll('.pkg-dot');
+  if (!grid || !dots.length) return;
+
+  // Update dots on scroll
+  var ticking = false;
+  grid.addEventListener('scroll', function() {
+    if (!ticking) {
+      requestAnimationFrame(function() {
+        var cards = grid.querySelectorAll('.package-card');
+        var scrollLeft = grid.scrollLeft;
+        var gridWidth = grid.offsetWidth;
+        var closest = 0;
+        var minDist = Infinity;
+        cards.forEach(function(card, i) {
+          var center = card.offsetLeft + card.offsetWidth / 2 - grid.offsetLeft;
+          var dist = Math.abs(center - scrollLeft - gridWidth / 2);
+          if (dist < minDist) { minDist = dist; closest = i; }
+        });
+        dots.forEach(function(d, i) { d.classList.toggle('active', i === closest); });
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+
+  // Click dots to scroll
+  dots.forEach(function(dot) {
+    dot.addEventListener('click', function() {
+      var idx = parseInt(dot.dataset.index);
+      var cards = grid.querySelectorAll('.package-card');
+      if (cards[idx]) {
+        var cardLeft = cards[idx].offsetLeft - grid.offsetLeft;
+        var offset = cardLeft - (grid.offsetWidth - cards[idx].offsetWidth) / 2;
+        grid.scrollTo({ left: offset, behavior: 'smooth' });
+      }
+    });
+  });
+})();
 </script>
 
 <!-- WhatsApp Float -->
