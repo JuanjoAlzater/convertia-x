@@ -1293,13 +1293,66 @@ footer {
   .testimonial-card { padding: 32px 24px; }
 }
 
-/* Add custom list styling for packages */
+/* ===== PACKAGES EXPANDABLE ===== */
 .package-features li {
   align-items: flex-start;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 .package-features li strong {
   color: var(--text-primary);
   font-weight: 600;
+  white-space: normal;
+}
+.package-features li span {
+  white-space: normal;
+  line-height: 1.5;
+}
+.pkg-extra {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+  opacity: 0;
+}
+.pkg-extra.open {
+  max-height: 1000px;
+  opacity: 1;
+}
+.pkg-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: 1px solid rgba(var(--accent-rgb), 0.2);
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 8px 16px;
+  border-radius: 100px;
+  cursor: pointer;
+  margin: 12px 0 20px;
+  transition: all 0.3s ease;
+}
+.pkg-toggle:hover {
+  background: rgba(var(--accent-rgb), 0.06);
+  border-color: rgba(var(--accent-rgb), 0.4);
+  box-shadow: 0 0 12px rgba(var(--accent-rgb), 0.1);
+}
+.pkg-toggle .chevron {
+  width: 14px;
+  height: 14px;
+  border-right: 2px solid var(--accent);
+  border-bottom: 2px solid var(--accent);
+  transform: rotate(45deg);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  flex-shrink: 0;
+  margin-top: -3px;
+}
+.pkg-toggle.open .chevron {
+  transform: rotate(-135deg);
+  margin-top: 3px;
 }
 
 
@@ -1530,12 +1583,17 @@ footer {
         <li><span><strong>Perfilación de ICP:</strong> Definición técnica del Buyer Persona por comportamiento e intención.</span></li>
         <li><span><strong>Landing Page de Alta Conversión:</strong> Desarrollo web orientado a respuesta directa (Imán de Leads).</span></li>
         <li><span><strong>Ecosistema Meta Ads:</strong> Configuración de 1 campaña en Facebook e Instagram para conversión.</span></li>
-        <li><span><strong>Creativos & Copywriting:</strong> Piezas optimizadas con textos basados en gatillos mentales (AIDA).</span></li>
-        <li><span><strong>Gobernanza Digital:</strong> Configuración en Business Manager y blindaje publicitario.</span></li>
-        <li><span><strong>Segmentación Avanzada:</strong> Audiencias Lookalikes, Intereses y Retargeting.</span></li>
-        <li><span><strong>Optimización (30 días):</strong> Ajuste diario para maximizar el ROAS.</span></li>
-        <li><span><strong>Reporting Analítico:</strong> Métricas clave (CPA, CCTR, CVR) y mejoras.</span></li>
       </ul>
+      <div class="pkg-extra">
+        <ul class="package-features">
+          <li><span><strong>Creativos &amp; Copywriting:</strong> Piezas optimizadas con textos basados en gatillos mentales (AIDA).</span></li>
+          <li><span><strong>Gobernanza Digital:</strong> Configuración en Business Manager y blindaje publicitario.</span></li>
+          <li><span><strong>Segmentación Avanzada:</strong> Audiencias Lookalikes, Intereses y Retargeting.</span></li>
+          <li><span><strong>Optimización (30 días):</strong> Ajuste diario para maximizar el ROAS.</span></li>
+          <li><span><strong>Reporting Analítico:</strong> Métricas clave (CPA, CCTR, CVR) y mejoras.</span></li>
+        </ul>
+      </div>
+      <button class="pkg-toggle" aria-expanded="false"><span class="toggle-label">Ver más</span><span class="chevron"></span></button>
       <a href="#cta" class="btn-secondary plan-btn-center">Conocer Más</a>
     </div>
     <div class="package-card featured reveal">
@@ -1547,15 +1605,20 @@ footer {
         <li><span><strong>Ingeniería de ICP:</strong> Modelado técnico basado en señales de intención.</span></li>
         <li><span><strong>Landing Page Ultra-rápida:</strong> Arquitectura optimizada para la captura de leads.</span></li>
         <li><span><strong>Nexus AI Chatbot:</strong> Agente inteligente para automatización y captura prospectada.</span></li>
-        <li><span><strong>Ecosistema de Rastreo:</strong> Instalación de Pixel y API de Conversiones.</span></li>
-        <li><span><strong>Video High-End:</strong> Producción de 5 piezas audiovisuales premium directas.</span></li>
-        <li><span><strong>Gestión de Meta Ads:</strong> 2 campañas enfocadas en volumen de leads calificados.</span></li>
-        <li><span><strong>Framework AIDA:</strong> Copywriting y diseño con gatillos mentales.</span></li>
-        <li><span><strong>Gobernanza y Blindaje:</strong> Setup para garantizar seguridad de la data.</span></li>
-        <li><span><strong>Sistematización de WhatsApp:</strong> Automatización del canal de cierre.</span></li>
-        <li><span><strong>Optimización y Retargeting:</strong> Ajuste diario para potenciar el ROAS.</span></li>
-        <li><span><strong>Reporte Inteligencia:</strong> Informe quincenal de CPA, CVR y escalamiento.</span></li>
       </ul>
+      <div class="pkg-extra">
+        <ul class="package-features">
+          <li><span><strong>Ecosistema de Rastreo:</strong> Instalación de Pixel y API de Conversiones.</span></li>
+          <li><span><strong>Video High-End:</strong> Producción de 5 piezas audiovisuales premium directas.</span></li>
+          <li><span><strong>Gestión de Meta Ads:</strong> 2 campañas enfocadas en volumen de leads calificados.</span></li>
+          <li><span><strong>Framework AIDA:</strong> Copywriting y diseño con gatillos mentales.</span></li>
+          <li><span><strong>Gobernanza y Blindaje:</strong> Setup para garantizar seguridad de la data.</span></li>
+          <li><span><strong>Sistematización de WhatsApp:</strong> Automatización del canal de cierre.</span></li>
+          <li><span><strong>Optimización y Retargeting:</strong> Ajuste diario para potenciar el ROAS.</span></li>
+          <li><span><strong>Reporte Inteligencia:</strong> Informe quincenal de CPA, CVR y escalamiento.</span></li>
+        </ul>
+      </div>
+      <button class="pkg-toggle" aria-expanded="false"><span class="toggle-label">Ver más</span><span class="chevron"></span></button>
       <a href="#cta" class="btn-primary plan-btn-center">Elegir Este Plan</a>
     </div>
     <div class="package-card reveal">
@@ -1566,16 +1629,21 @@ footer {
         <li><span><strong>Inmersión y Debate (40 min):</strong> Alineamiento de objetivos y validación de rentabilidad mediante KPIs.</span></li>
         <li><span><strong>Ingeniería de ICP:</strong> Modelado técnico del cliente ideal por intención.</span></li>
         <li><span><strong>Hub de Conversión:</strong> Landing ultra-rápida diseñada bajo psicología de ventas.</span></li>
-        <li><span><strong>Nexus AI CRM & Leads:</strong> Sistema CRM que optimiza prospección y aumenta ventas.</span></li>
-        <li><span><strong>Ecosistema de Rastreo:</strong> Instalación avanzada de Pixel y API.</span></li>
-        <li><span><strong>Contenido Audiovisual:</strong> Pre-producción y día de rodaje de 10 videos de impacto.</span></li>
-        <li><span><strong>Gestión de Meta Ads:</strong> 3 campañas enfocadas en leads calificados.</span></li>
-        <li><span><strong>Storytelling AIDA:</strong> Narrativa y visuales premium guiando hacia el cierre.</span></li>
-        <li><span><strong>Gobernanza y Blindaje:</strong> Seguridad y propiedad total de la data.</span></li>
-        <li><span><strong>Sistematización WhatsApp:</strong> Automatización total del canal de cierre.</span></li>
-        <li><span><strong>Optimización y Retargeting:</strong> Ajuste diario de audiencias y pujas.</span></li>
-        <li><span><strong>Reporte Inteligencia:</strong> Informe quincenal táctico de escalamiento.</span></li>
+        <li><span><strong>Nexus AI CRM &amp; Leads:</strong> Sistema CRM que optimiza prospección y aumenta ventas.</span></li>
       </ul>
+      <div class="pkg-extra">
+        <ul class="package-features">
+          <li><span><strong>Ecosistema de Rastreo:</strong> Instalación avanzada de Pixel y API.</span></li>
+          <li><span><strong>Contenido Audiovisual:</strong> Pre-producción y día de rodaje de 10 videos de impacto.</span></li>
+          <li><span><strong>Gestión de Meta Ads:</strong> 3 campañas enfocadas en leads calificados.</span></li>
+          <li><span><strong>Storytelling AIDA:</strong> Narrativa y visuales premium guiando hacia el cierre.</span></li>
+          <li><span><strong>Gobernanza y Blindaje:</strong> Seguridad y propiedad total de la data.</span></li>
+          <li><span><strong>Sistematización WhatsApp:</strong> Automatización total del canal de cierre.</span></li>
+          <li><span><strong>Optimización y Retargeting:</strong> Ajuste diario de audiencias y pujas.</span></li>
+          <li><span><strong>Reporte Inteligencia:</strong> Informe quincenal táctico de escalamiento.</span></li>
+        </ul>
+      </div>
+      <button class="pkg-toggle" aria-expanded="false"><span class="toggle-label">Ver más</span><span class="chevron"></span></button>
       <a href="#cta" class="btn-secondary plan-btn-center">Conocer Más</a>
     </div>
   </div>
@@ -2000,6 +2068,19 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a) {
   a.addEventListener('click', function(e) {
     const t = document.querySelector(this.getAttribute('href'));
     if (t) { e.preventDefault(); window.scrollTo({ top: t.getBoundingClientRect().top + scrollY - 80, behavior: 'smooth' }); }
+  });
+});
+
+/* ===== PACKAGE TOGGLE ===== */
+document.querySelectorAll('.pkg-toggle').forEach(function(btn) {
+  btn.addEventListener('click', function() {
+    var card = btn.closest('.package-card');
+    var extra = card.querySelector('.pkg-extra');
+    var label = btn.querySelector('.toggle-label');
+    var isOpen = extra.classList.toggle('open');
+    btn.classList.toggle('open', isOpen);
+    btn.setAttribute('aria-expanded', isOpen);
+    label.textContent = isOpen ? 'Ver menos' : 'Ver más';
   });
 });
 </script>
