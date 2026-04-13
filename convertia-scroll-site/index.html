@@ -859,6 +859,8 @@ body {
   display: flex;
   align-items: flex-start;
   gap: 10px;
+  word-break: break-word;
+  overflow-wrap: break-word;
 }
 .package-features li::before {
   content: '';
@@ -1376,22 +1378,43 @@ footer {
   font-size: 0.85rem;
   color: var(--text-secondary);
 }
+.testi-dots { display: none; }
 
 @media (max-width: 1024px) {
   .testimonials-grid { grid-template-columns: repeat(2, 1fr); }
 }
 @media (max-width: 768px) {
-  .testimonials-grid { grid-template-columns: 1fr; }
-  #testimonials { padding: 60px 20px; }
-  .testimonial-card { padding: 32px 24px; }
+  #testimonials { padding: 60px 0; overflow: hidden; }
+  #testimonials .features-header { padding: 0 20px; }
+  .testimonials-grid {
+    display: flex !important;
+    grid-template-columns: none !important;
+    max-width: none !important;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 16px;
+    padding: 0 20px 20px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .testimonials-grid::-webkit-scrollbar { display: none; }
+  .testimonial-card {
+    min-width: 82vw;
+    max-width: 82vw;
+    scroll-snap-align: center;
+    padding: 28px 22px;
+    flex-shrink: 0;
+  }
+  .testi-dots { display: flex; justify-content: center; gap: 10px; padding-top: 8px; }
+  .testi-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: rgba(var(--surface-rgb),0.15); border: none; cursor: pointer;
+    transition: all 0.3s ease; padding: 0;
+  }
+  .testi-dot.active { background: var(--accent); box-shadow: 0 0 8px rgba(var(--accent-rgb),0.4); }
 }
 
 /* ===== PACKAGES EXPANDABLE ===== */
-.package-features li {
-  align-items: flex-start;
-  word-break: break-word;
-  overflow-wrap: break-word;
-}
 .package-features li strong {
   color: var(--text-primary);
   font-weight: 600;
@@ -1804,12 +1827,12 @@ footer {
         <!-- Desktop: canvas for scroll-driven playback -->
         <canvas id="aboutCanvas" class="about-canvas-desktop"></canvas>
         <!-- Mobile: regular video fallback -->
-        <video class="about-video-mobile" muted playsinline preload="auto">
+        <video class="about-video-mobile" muted playsinline preload="auto" aria-label="Video presentación del equipo Convertia">
           <source src="video-nosotros.mp4" type="video/mp4">
         </video>
         <span class="about-video-label">Nuestro equipo</span>
       </div>
-      <video id="aboutVideoSrc" muted playsinline preload="metadata" class="about-video-hidden">
+      <video id="aboutVideoSrc" muted playsinline preload="metadata" class="about-video-hidden" aria-hidden="true">
         <source src="video-nosotros.mp4" type="video/mp4">
       </video>
     </div>
@@ -2075,6 +2098,11 @@ footer {
       <div class="testimonial-role">Fundador, Alfa Ventures</div>
     </div>
   </div>
+  <div class="testi-dots" aria-label="Navegación de testimonios">
+    <button type="button" class="testi-dot active" data-index="0" aria-label="Testimonio 1"></button>
+    <button type="button" class="testi-dot" data-index="1" aria-label="Testimonio 2"></button>
+    <button type="button" class="testi-dot" data-index="2" aria-label="Testimonio 3"></button>
+  </div>
 </section>
 
 <!-- Clients -->
@@ -2244,21 +2272,23 @@ document.querySelectorAll('.reveal').forEach(function(el) { revealObs.observe(el
 /* ===== SPLINE SCROLL PASSTHROUGH ===== */
 var heroSpline = document.querySelector('.hero-spline');
 
-heroSpline.addEventListener('wheel', function(e) {
-  e.preventDefault();
-  window.scrollBy(0, e.deltaY);
-}, { passive: false });
+if (heroSpline) {
+  heroSpline.addEventListener('wheel', function(e) {
+    e.preventDefault();
+    window.scrollBy(0, e.deltaY);
+  }, { passive: false });
 
-// Touch passthrough for tablets where Spline is still visible
-var touchStartY = 0;
-heroSpline.addEventListener('touchstart', function(e) {
-  touchStartY = e.touches[0].clientY;
-}, { passive: true });
-heroSpline.addEventListener('touchmove', function(e) {
-  var deltaY = touchStartY - e.touches[0].clientY;
-  touchStartY = e.touches[0].clientY;
-  window.scrollBy(0, deltaY);
-}, { passive: true });
+  // Touch passthrough for tablets where Spline is still visible
+  var touchStartY = 0;
+  heroSpline.addEventListener('touchstart', function(e) {
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+  heroSpline.addEventListener('touchmove', function(e) {
+    var deltaY = touchStartY - e.touches[0].clientY;
+    touchStartY = e.touches[0].clientY;
+    window.scrollBy(0, deltaY);
+  }, { passive: true });
+}
 
 /* ===== SCROLL-DRIVEN VIDEO (frame extraction + canvas) ===== */
 (function() {
@@ -2391,8 +2421,10 @@ document.querySelectorAll('a[href^="#"]').forEach(function(a) {
 document.querySelectorAll('.pkg-toggle').forEach(function(btn) {
   btn.addEventListener('click', function() {
     var card = btn.closest('.package-card');
+    if (!card) return;
     var extra = card.querySelector('.pkg-extra');
     var label = btn.querySelector('.toggle-label');
+    if (!extra || !label) return;
     var isOpen = extra.classList.toggle('open');
     btn.classList.toggle('open', isOpen);
     btn.setAttribute('aria-expanded', isOpen);
@@ -2433,6 +2465,46 @@ document.querySelectorAll('.pkg-toggle').forEach(function(btn) {
     dot.addEventListener('click', function() {
       var idx = parseInt(dot.dataset.index);
       var cards = grid.querySelectorAll('.package-card');
+      if (cards[idx]) {
+        var cardLeft = cards[idx].offsetLeft - grid.offsetLeft;
+        var offset = cardLeft - (grid.offsetWidth - cards[idx].offsetWidth) / 2;
+        grid.scrollTo({ left: offset, behavior: 'smooth' });
+      }
+    });
+  });
+})();
+
+/* ===== TESTIMONIALS CAROUSEL DOTS ===== */
+(function() {
+  var grid = document.querySelector('.testimonials-grid');
+  var dots = document.querySelectorAll('.testi-dot');
+  if (!grid || !dots.length) return;
+
+  var ticking = false;
+  grid.addEventListener('scroll', function() {
+    if (!ticking) {
+      requestAnimationFrame(function() {
+        var cards = grid.querySelectorAll('.testimonial-card');
+        var scrollLeft = grid.scrollLeft;
+        var gridWidth = grid.offsetWidth;
+        var closest = 0;
+        var minDist = Infinity;
+        cards.forEach(function(card, i) {
+          var center = card.offsetLeft + card.offsetWidth / 2 - grid.offsetLeft;
+          var dist = Math.abs(center - scrollLeft - gridWidth / 2);
+          if (dist < minDist) { minDist = dist; closest = i; }
+        });
+        dots.forEach(function(d, i) { d.classList.toggle('active', i === closest); });
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+
+  dots.forEach(function(dot) {
+    dot.addEventListener('click', function() {
+      var idx = parseInt(dot.dataset.index);
+      var cards = grid.querySelectorAll('.testimonial-card');
       if (cards[idx]) {
         var cardLeft = cards[idx].offsetLeft - grid.offsetLeft;
         var offset = cardLeft - (grid.offsetWidth - cards[idx].offsetWidth) / 2;
