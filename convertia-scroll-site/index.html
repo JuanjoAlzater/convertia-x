@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Convertia — Sistema de Conversión Digital | Atrae, Convierte, Crece</title>
-<meta name="description" content="Convertia es el sistema de conversión digital con más de 15 años de experiencia. Transformamos leads en ventas reales con IA omnicanal, Growth Hacking y estrategias de marca.">
+<meta name="description" content="Convertia es el sistema de conversión digital con más de 15 años de experiencia. Convertimos leads en ventas reales con IA omnicanal, Growth Hacking y arquitectura de marca.">
 <meta name="keywords" content="Convertia, sistema de conversión, marketing digital, leads, ventas, IA omnicanal, growth hacking, estrategia digital, NEXUS AI">
 <meta name="author" content="Convertia">
 <meta name="robots" content="index, follow">
@@ -13,7 +13,7 @@
 <!-- Open Graph -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="Convertia — Sistema de Conversión Digital">
-<meta property="og:description" content="No gestionamos campañas, diseñamos rutas de crecimiento. Más de 15 años transformando leads en ventas reales.">
+<meta property="og:description" content="No gestionamos campañas, diseñamos rutas de crecimiento. Más de 15 años convirtiendo leads en ventas reales.">
 <meta property="og:url" content="https://convertia.com/">
 <meta property="og:site_name" content="Convertia">
 <meta property="og:locale" content="es_MX">
@@ -21,7 +21,7 @@
 <!-- Twitter Card -->
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Convertia — Sistema de Conversión Digital">
-<meta name="twitter:description" content="No gestionamos campañas, diseñamos rutas de crecimiento. Más de 15 años transformando leads en ventas reales.">
+<meta name="twitter:description" content="No gestionamos campañas, diseñamos rutas de crecimiento. Más de 15 años convirtiendo leads en ventas reales.">
 
 <!-- Theme -->
 <meta name="theme-color" content="#00FF88">
@@ -399,11 +399,25 @@ body {
 /* ===== SECTION COMMONS ===== */
 .section-tag {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: var(--accent);
+  font-size: 0.72rem;
+  color: var(--text-secondary);
   text-transform: uppercase;
-  letter-spacing: 3px;
-  margin-bottom: 16px;
+  letter-spacing: 0.14em;
+  margin-bottom: 28px;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 14px;
+}
+.section-tag .num {
+  color: var(--accent);
+  font-weight: 500;
+}
+.section-tag .rule {
+  flex: 0 0 36px;
+  height: 1px;
+  background: rgba(var(--surface-rgb), 0.18);
+  display: inline-block;
+  align-self: center;
 }
 .section-title {
   font-family: var(--font-heading);
@@ -1724,7 +1738,7 @@ footer {
   "@context": "https://schema.org",
   "@type": "Organization",
   "name": "Convertia",
-  "description": "Sistema de conversión digital. Transformamos leads en ventas reales con IA omnicanal, Growth Hacking y estrategias de marca.",
+  "description": "Sistema de conversión digital. Convertimos leads en ventas reales con IA omnicanal, Growth Hacking y arquitectura de marca.",
   "url": "https://convertia.com",
   "foundingDate": "2011",
   "slogan": "Atrae, Convierte, Crece",
@@ -1802,7 +1816,7 @@ footer {
   </div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
-    <h1 class="hero-title-mobile">Una metodología completa para <span>transformar leads</span> en <span>ventas reales</span></h1>
+    <h1 class="hero-title-mobile">Un sistema completo para <span>convertir leads</span> en <span>ventas reales</span></h1>
     <p class="hero-tag">Atrae &middot; Convierte &middot; Crece</p>
     <div class="hero-buttons">
       <a href="#cta" class="btn-primary">Empezar a Convertir</a>
@@ -1815,9 +1829,9 @@ footer {
 <section id="about">
   <div class="about-layout">
     <div class="about-inner reveal">
-      <p class="section-tag">Quiénes Somos</p>
+      <p class="section-tag"><span class="num">01</span><span class="rule"></span><span>Quiénes Somos</span></p>
       <h2 class="section-title">Estrategia con precisión, resultados con impacto</h2>
-      <p class="section-text">Somos una agencia de marketing digital enfocada en convertir objetivos en resultados reales. Durante más de 15 años hemos impulsado el crecimiento de empresas en sectores altamente competitivos, a través de estrategias inteligentes, medibles y orientadas a ventas. No dependemos de tendencias ni del mercado: trabajamos con un sistema propio de análisis y ejecución que optimiza cada punto del proceso comercial para acelerar la conversión y maximizar el retorno de tu inversión.</p>
+      <p class="section-text">Convertia es un sistema de conversión digital, no una agencia. Durante más de 15 años hemos escalado empresas en sectores altamente competitivos con un método propio: análisis, ejecución y seguimiento que no dependen del mercado ni de las tendencias. Cada punto del proceso comercial está medido y optimizado para una sola cosa — convertir.</p>
     </div>
     <div class="about-video-container reveal">
       <div class="about-video-glow"></div>
@@ -1865,7 +1879,7 @@ footer {
 <!-- Features / Values -->
 <section id="features">
   <div class="features-header reveal">
-    <p class="section-tag">Valores Agregados</p>
+    <p class="section-tag"><span class="num">02</span><span class="rule"></span><span>Valores</span></p>
     <h2 class="section-title">Que nos diferencia</h2>
   </div>
   <div class="features-grid">
@@ -1904,7 +1918,7 @@ footer {
 <!-- Packages -->
 <section id="packages">
   <div class="features-header reveal">
-    <p class="section-tag">Paquetes</p>
+    <p class="section-tag"><span class="num">03</span><span class="rule"></span><span>Paquetes</span></p>
     <h2 class="section-title">Elige tu nivel de crecimiento</h2>
   </div>
   <div class="packages-grid" style="grid-template-columns: repeat(3, 1fr); max-width: 1300px;">
@@ -1948,7 +1962,7 @@ footer {
           <li><span><strong>Framework AIDA:</strong> Copywriting y diseño con gatillos mentales.</span></li>
           <li><span><strong>Gobernanza y Blindaje:</strong> Setup para garantizar seguridad de la data.</span></li>
           <li><span><strong>Sistematización de WhatsApp:</strong> Automatización del canal de cierre.</span></li>
-          <li><span><strong>Optimización y Retargeting:</strong> Ajuste diario para potenciar el ROAS.</span></li>
+          <li><span><strong>Optimización y Retargeting:</strong> Ajuste diario para elevar el ROAS.</span></li>
           <li><span><strong>Reporte Inteligencia:</strong> Informe quincenal de CPA, CVR y escalamiento.</span></li>
         </ul>
       </div>
@@ -1992,7 +2006,7 @@ footer {
 <!-- Services -->
 <section id="services">
   <div class="features-header reveal">
-    <p class="section-tag">Servicios &amp; Metodología</p>
+    <p class="section-tag"><span class="num">04</span><span class="rule"></span><span>Servicios &amp; Metodología</span></p>
     <h2 class="section-title">Nuestro sistema de conversión</h2>
   </div>
   <div class="services-grid">
@@ -2012,7 +2026,7 @@ footer {
       <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M19 9l1.25-2.75L23 5l-2.75-1.25L19 1l-1.25 2.75L15 5l2.75 1.25L19 9zm-7.5.5L9 4 6.5 9.5 1 12l5.5 2.5L9 20l2.5-5.5L17 12l-5.5-2.5zM19 15l-1.25 2.75L15 19l2.75 1.25L19 23l1.25-2.75L23 19l-2.75-1.25L19 15z"/></svg></div>
       <p class="service-tag">Estrategia</p>
       <h3>Metodología MAGIA</h3>
-      <p>Maximización, Alcance, Generación, Impacto, Atracción. Transforma la estrategia en una herramienta viva que genera valor real a la marca.</p>
+      <p>Maximización, Alcance, Generación, Impacto, Atracción. Convierte la estrategia en una herramienta viva que genera valor medible para la marca.</p>
     </div>
     <div class="service-card reveal">
       <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M12 7V3H2v18h20V7H12zM6 19H4v-2h2v2zm0-4H4v-2h2v2zm0-4H4V9h2v2zm0-4H4V5h2v2zm4 12H8v-2h2v2zm0-4H8v-2h2v2zm0-4H8V9h2v2zm0-4H8V5h2v2zm10 12h-8v-2h2v-2h-2v-2h2v-2h-2V9h8v10zm-2-8h-2v2h2v-2zm0 4h-2v2h2v-2z"/></svg></div>
@@ -2038,7 +2052,7 @@ footer {
 <!-- Results -->
 <section id="results">
   <div class="features-header reveal">
-    <p class="section-tag">Nuestros Logros</p>
+    <p class="section-tag"><span class="num">05</span><span class="rule"></span><span>Resultados</span></p>
     <h2 class="section-title">Resultados que hablan por nosotros</h2>
   </div>
   <div class="results-grid">
@@ -2075,7 +2089,7 @@ footer {
 <!-- Testimonials -->
 <section id="testimonials">
   <div class="features-header reveal">
-    <p class="section-tag">Casos de Éxito</p>
+    <p class="section-tag"><span class="num">06</span><span class="rule"></span><span>Casos de Éxito</span></p>
     <h2 class="section-title">Testimonios</h2>
   </div>
   <div class="testimonials-grid">
@@ -2087,13 +2101,13 @@ footer {
     </div>
     <div class="testimonial-card reveal delay-1">
       <div class="testimonial-stars">★★★★★</div>
-      <p class="testimonial-quote">"Convertia ha transformado por completo nuestra estrategia digital. Desde que implementamos su framework, nuestras ventas han crecido exponencialmente."</p>
+      <p class="testimonial-quote">"Convertia rediseñó por completo nuestra estrategia digital. Desde que implementamos su sistema, nuestras ventas crecen mes a mes con números medibles."</p>
       <div class="testimonial-author">María Fernández</div>
       <div class="testimonial-role">Directora de Marketing, Innova</div>
     </div>
     <div class="testimonial-card reveal delay-2">
       <div class="testimonial-stars">★★★★★</div>
-      <p class="testimonial-quote">"Son mucho más que una agencia, son aliados estratégicos. No solo nos entregaron resultados tangibles, sino que nos ayudaron a rediseñar cómo atraemos clientes."</p>
+      <p class="testimonial-quote">"Trabajan como un socio operativo, no como proveedor. Cuestionaron nuestras hipótesis, midieron cada experimento y rediseñaron cómo atraemos clientes — con datos, no con suposiciones."</p>
       <div class="testimonial-author">Juan Pablo Torres</div>
       <div class="testimonial-role">Fundador, Alfa Ventures</div>
     </div>
@@ -2108,7 +2122,7 @@ footer {
 <!-- Clients -->
 <section id="clients">
   <div class="features-header reveal">
-    <p class="section-tag">Confían en nosotros</p>
+    <p class="section-tag"><span class="num">07</span><span class="rule"></span><span>Clientes</span></p>
     <h2 class="section-title">Nuestra Experiencia</h2>
   </div>
   <div class="clients-marquee">
@@ -2139,7 +2153,7 @@ footer {
 <section id="cta">
   <div class="cta-orb"></div>
   <div class="cta-content reveal">
-    <p class="section-tag">Da el primer paso</p>
+    <p class="section-tag"><span class="num">08</span><span class="rule"></span><span>Empieza</span></p>
     <h2>Activa tu Workshop Estratégico</h2>
     <p>Las grandes decisiones no nacen en presentaciones, nacen en el debate correcto. Creamos espacios de debate, exploración y toma de decisiones donde el crecimiento se diseña con método.</p>
     <a href="#" class="btn-primary btn-large">Empezar a Convertir</a>
